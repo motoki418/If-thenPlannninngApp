@@ -7,82 +7,67 @@
 
 import SwiftUI
 import CoreData
-
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.blue
+        // タイトルの色設定
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
+    }// init()
+    // SafariViewの表示有無を管理する状態変数
+    @State private var isShowSafari = false
+    // シートの状態を管理する状態変数
+    @State private var isShowSheet = false
+    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
+    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
+    @Environment(\.managedObjectContext) private var context
+    // データベースからデータを取得する処理(Fetch処理)
+    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をtasksプロパティに格納
+    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(data)に検索結果が格納されるとともに、
+    // データの変更がViewに即時反映される
+    
+    @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: false)], predicate: nil)
+    private var datas: FetchedResults<Item>
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
+            // 背景色の上にメモの内容と＋ボタンを重ねて表示する
+            ZStack {
+                // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
+                // Spacer()でボタンの上と左側にスペースを入れる
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button {
+                            isShowSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                            // ボタンの下に余白を入れる
+                                .padding(.bottom, 20)
+                        }// 「＋」ボタンここまで
+                        .padding()
+                        .sheet(isPresented: $isShowSheet) {
+                            AddRuleView(isShowSheet: $isShowSheet)
+                        }// .sheetここまで
+                    }// HStackここまで
+                }// VStackここまで
+            }// ZStackここまで
+            .navigationTitle("データ一覧")
+            .navigationBarTitleDisplayMode(.inline)
+        }// NavigationViewここまで
+    }// bodyここまで
+}// ContentViewここまで
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
     }
 }

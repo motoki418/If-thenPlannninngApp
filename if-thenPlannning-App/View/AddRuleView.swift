@@ -25,6 +25,18 @@ struct AddRuleView: View {
                 TextField("例：15分散歩をする", text: $inputRule2)  .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 Button {
+                    // データの新規登録は、エンティティクラス（NSManagedObjectの派生クラス）のインスタンスを生成して実現します。
+                    // インスタンス生成時の引数contextにはNSManagedObjectContextを指定します。
+                    let newItem = Item(context: context)
+                    newItem.content = inputRule1
+                    print("newItem.content:  \(newItem.content)")
+                    newItem.date = Date()
+                    do{
+                        try context.save()
+                        print("newItem:  \(newItem)")
+                    }catch{
+                        print(error.localizedDescription)
+                    }
                     isShowSheet.toggle()
                 }label: {
                     Label("If-thenルールの追加", systemImage: "plus")
@@ -49,6 +61,7 @@ struct AddRuleView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                     
                         isShowSheet.toggle()
                     }label: {
                         Text("Cancel")

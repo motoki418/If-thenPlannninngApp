@@ -36,9 +36,34 @@ struct ContentView: View {
         NavigationView {
             // 背景色の上にメモの内容と＋ボタンを重ねて表示する
             ZStack {
-                // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
-                // Spacer()でボタンの上と左側にスペースを入れる
                 VStack {
+                    List{
+                        ForEach(datas){ data in
+                            //１件分のメモのテキストと日付の位置を左寄せにして文字の間にスペースを入れる
+                            VStack(alignment: .leading, spacing: 5){
+                                //入力したメモを表示
+                                //wrappedContentはMemo+CoreDataProperties.swiftでMemoをextentionした時に宣言した変数
+                                //contentはオプショナル変数なので事前にnilだった時の処理を決めている
+                                Text("\(data.wappedContent1) \(data.wappedContent2)")
+                                    .fontWeight(.bold)
+                                //選択した日付を表示
+                                //wrappedDateはMemo+CoreDataProperties.swiftでMemoをextentionした時に宣言した変数
+                                //dateはオプショナル変数なので事前にnilだった時の処理を決めている
+                                Text(data.wrappedDate, style: .date)
+                                    .fontWeight(.bold)
+                            }// VStackここまで
+                            //.contextMenuを使用して、メモを長押しすると削除と編集が選べるように設定
+                            .contextMenu{
+                                Button{
+                                    context.delete(data)
+                                }label:{
+                                    Label("削除",systemImage:"trash")
+                                }//削除ボタン
+                            }//contextMenu
+                        }// ForEachここまで
+                    }// Listここまで
+                    // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
+                    // Spacer()でボタンの上と左側にスペースを入れる
                     Spacer()
                     HStack {
                         Spacer()
@@ -66,6 +91,7 @@ struct ContentView: View {
         }// NavigationViewここまで
     }// bodyここまで
 }// ContentViewここまで
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

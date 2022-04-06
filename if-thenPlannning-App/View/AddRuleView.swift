@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddRuleView: View {
-    // ContentView　⇄ AddDataViewのシートを管理する状態変数
+    // ContentView　⇄ AddRuleViewのシートを管理する状態変数
     @Binding var isShowSheet: Bool
     // 入力したルール1(if)を格納
     @State private var inputRule1: String = ""
@@ -25,18 +25,23 @@ struct AddRuleView: View {
                 TextField("例：15分散歩をする", text: $inputRule2)  .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 Button {
-                    // データの新規登録は、エンティティクラス（NSManagedObjectの派生クラス）のインスタンスを生成して実現します。
-                    // インスタンス生成時の引数contextにはNSManagedObjectContextを指定します。
+                    // データの新規登録は、エンティティクラス（NSManagedObjectの派生クラス）のインスタンスを生成して実現する
+                    // インスタンス生成時の引数contextにはNSManagedObjectContextを指定する
                     let newItem = Item(context: context)
-                    newItem.content = inputRule1
-                    print("newItem.content:  \(newItem.content)")
+                    newItem.content1 = inputRule1
+                    newItem.content2 = inputRule2
+                    print("newItem.content1:  \(newItem.content1)")
+                    print("newItem.content2:  \(newItem.content2)")
                     newItem.date = Date()
                     do{
+                        // ManagedObjectContextのsave()メソッドで、データベースを保存（コミット）する
+                        // このメソッドはエラーを返す可能性がある為、tryを使ったエラーキャッチが必要
                         try context.save()
                         print("newItem:  \(newItem)")
                     }catch{
                         print(error.localizedDescription)
                     }
+                    // 画面を閉じる
                     isShowSheet.toggle()
                 }label: {
                     Label("If-thenルールの追加", systemImage: "plus")
@@ -51,15 +56,15 @@ struct AddRuleView: View {
                         .padding(.vertical, 30)
                 }// 「ブックマークの追加」Buttonここまで
                 // 両方のTextFieldに、ルールが入力されていない場合は、ボタンを押せなくする
-                .disabled(inputRule1 == "" && inputRule2 == "" ? true : false)
+                .disabled(inputRule1 == "" || inputRule2 == "" ? true : false)
                 // 両方のTextFieldに、ルールが入力されていない場合は、ボタンの透明度を高くする
-                .opacity(inputRule1 == "" && inputRule2 == "" ? 0.5 : 1)
+                .opacity(inputRule1 == "" || inputRule2 == "" ? 0.5 : 1)
                 Spacer()
             }// VStackここまで
             .navigationTitle("データの追加")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                      
                         isShowSheet.toggle()

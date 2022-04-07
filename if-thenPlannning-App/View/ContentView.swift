@@ -7,81 +7,56 @@
 
 import SwiftUI
 import CoreData
+
 struct ContentView: View {
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.blue
+        appearance.backgroundColor = UIColor.keyColor
         // タイトルの色設定
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
     }// init()
+
+    @ObservedObject private var viewModel: ViewModel = ViewModel()
     // SafariViewの表示有無を管理する状態変数
     @State private var isShowSafari = false
-    // シートの状態を管理する状態変数
-    @State private var isShowSheet = false
-    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
-    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
-    @Environment(\.managedObjectContext) private var context
-    // データベースからデータを取得する処理(Fetch処理)
-    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をtasksプロパティに格納
-    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(data)に検索結果が格納されるとともに、
-    // データの変更がViewに即時反映される
-    
-    @FetchRequest(entity: Item.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: false)], predicate: nil)
-    private var datas: FetchedResults<Item>
     
     var body: some View {
         NavigationView {
             // 背景色の上にメモの内容と＋ボタンを重ねて表示する
             ZStack {
-                VStack {
-                    List{
-                        ForEach(datas){ data in
-                            //１件分のメモのテキストと日付の位置を左寄せにして文字の間にスペースを入れる
-                            VStack(alignment: .leading, spacing: 5){
-                                //入力したメモを表示
-                                //wrappedContentはMemo+CoreDataProperties.swiftでMemoをextentionした時に宣言した変数
-                                //contentはオプショナル変数なので事前にnilだった時の処理を決めている
-                                Text("\(data.wappedContent1) \(data.wappedContent2)")
-                                    .fontWeight(.bold)
-                                //選択した日付を表示
-                                //wrappedDateはMemo+CoreDataProperties.swiftでMemoをextentionした時に宣言した変数
-                                //dateはオプショナル変数なので事前にnilだった時の処理を決めている
-                                Text(data.wrappedDate, style: .date)
-                                    .fontWeight(.bold)
-                            }// VStackここまで
-                            //.contextMenuを使用して、メモを長押しすると削除と編集が選べるように設定
-                            .contextMenu{
-                                Button{
-                                    context.delete(data)
-                                }label:{
-                                    Label("削除",systemImage:"trash")
-                                }//削除ボタン
-                            }//contextMenu
-                        }// ForEachここまで
-                    }// Listここまで
+                //SwiftUIではColor構造体を使って色を指定する
+                //背景色に［Assets.xcassets］に登録したbackgroundの色を適用する
+                Color.gray
+                //背景色を画面下いっぱいまで広げる　画面上部は塗らない
+                    .edgesIgnoringSafeArea(.bottom)
+                //メモの内容と＋ボタンを縦方向にレイアウト
+                //CoreDataに登録されたデータがない場合の処理
+                VStack{
+                    DataListRowView()
+                    Spacer()
                     // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
                     // Spacer()でボタンの上と左側にスペースを入れる
-                    Spacer()
                     HStack {
                         Spacer()
                         Button {
-                            isShowSheet.toggle()
+                            viewModel.isShowSheet.toggle()
+                            print("viewModel.isShowSheet: \(viewModel.isShowSheet)")
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 40))
                                 .foregroundColor(.white)
                                 .frame(width: 60, height: 60)
-                                .background(Color.blue)
+                                .background(Color.keyColor)
                                 .clipShape(Circle())
                             // ボタンの下に余白を入れる
                                 .padding(.bottom, 20)
                         }// 「＋」ボタンここまで
                         .padding()
-                        .sheet(isPresented: $isShowSheet) {
-                            AddRuleView(isShowSheet: $isShowSheet)
+                        .sheet(isPresented: $viewModel.isShowSheet) {
+                            AddRuleView(viewModel: viewModel)
                         }// .sheetここまで
                     }// HStackここまで
                 }// VStackここまで

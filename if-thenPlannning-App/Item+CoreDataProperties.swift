@@ -18,6 +18,7 @@ extension Item {
 
     @NSManaged public var content1: String?
     @NSManaged public var content2: String?
+    @NSManaged public var category: String?
     @NSManaged public var date: Date?
     
     //値がnilの場合のデフォルト値定義

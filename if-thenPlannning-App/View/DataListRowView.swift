@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DataListRowView: View {
+
+    @ObservedObject var viewModel: ViewModel = ViewModel()
     // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context
@@ -23,49 +25,63 @@ struct DataListRowView: View {
 
     var body: some View {
         VStack{
+            // CoreDataに登録されたデータがない場合の処理
             if items.isEmpty{
                 Spacer()
-                //画面の中央に表示
+                // 画面の中央に表示
                 Text("ADD IF THEN RULE")
                     .font(.title)
                     .fontWeight(.bold)
                 Spacer()
             }
-            //CoreDataに登録されたデータがある場合
+            // CoreDataに登録されたデータがある場合
             else{
-                ScrollView(.vertical, showsIndicators: true){
-                    //１件分のメモのテキストと日付の位置を左寄せにして文字の間にスペースを入れる
-                    LazyVStack(alignment: .leading, spacing: 5){
-                        ForEach(items){ item in
-                                //入力したメモを表示
-                                Text("\(item.wrappedContent1) \(item.wrappedContent2)")
+                List{
+                    ForEach(items){ item in
+                        VStack(alignment: .leading, spacing: 5){
+                            // 入力したメモを表示
+                            HStack{
+                                Text("if")
+                                    .foregroundColor(.keyColor)
                                     .font(.title3)
                                     .fontWeight(.bold)
-                                // 日付を表示
-                             Text(item.stringUpdatedAt)
+                                Text(item.wrappedContent1)
+                                    .font(.title3)
                                     .fontWeight(.bold)
-                                //区切り線を引く
-                                Divider()
-                            //.contextMenuを使用して、メモを長押しすると削除と編集が選べるように設定
-                            .contextMenu{
-                                Button{
-                                    context.delete(item)
-                                }label:{
-                                    Label("削除",systemImage:"trash")
-                                }//削除ボタン
-                            }//contextMenu
-                        }// ForEachここまで
-                    }// LazyVStack
-                    .padding()
-                }// ScrollView
+                            }// HStackここまで
+                            HStack{
+                                Text("then")
+                                    .foregroundColor(.keyColor)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                Text(item.wrappedContent2)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                            }// HStackここまで
+                            // 日付を表示
+                            Text(item.stringUpdatedAt)
+                                .fontWeight(.bold)
+                        }// VStackここまで
+                    }// ForEachここまで
+                    // データの削除
+                    .onDelete(perform: removeData)
+                }// Listここまで
             }// if文ここまで
         }// VStackここまで
     }// bodyここまで
+
+    // データの削除を行うメソッド
+    private func removeData(offsets: IndexSet) {
+        // offsetsには削除対象の要素番号が入るので、これを使って要素番号に対応するエンティティを削除する。
+        for index in offsets {
+            let putItem = items[index]
+            context.delete(putItem)
+        }
+        do {
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }// removeData
 }// DataListRowViewここまで
-
-struct DataListRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        DataListRowView()
-    }
-}
-

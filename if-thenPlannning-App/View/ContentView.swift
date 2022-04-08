@@ -20,22 +20,14 @@ struct ContentView: View {
     }// init()
 
     @ObservedObject private var viewModel: ViewModel = ViewModel()
-    // SafariViewの表示有無を管理する状態変数
-    @State private var isShowSafari = false
     
     var body: some View {
         NavigationView {
-            // 背景色の上にメモの内容と＋ボタンを重ねて表示する
             ZStack {
-                //SwiftUIではColor構造体を使って色を指定する
-                //背景色に［Assets.xcassets］に登録したbackgroundの色を適用する
-                Color.gray
-                //背景色を画面下いっぱいまで広げる　画面上部は塗らない
-                    .edgesIgnoringSafeArea(.bottom)
+                // データリストを表示
+                DataListRowView()
                 //メモの内容と＋ボタンを縦方向にレイアウト
-                //CoreDataに登録されたデータがない場合の処理
                 VStack{
-                    DataListRowView()
                     Spacer()
                     // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
                     // Spacer()でボタンの上と左側にスペースを入れる
@@ -43,7 +35,6 @@ struct ContentView: View {
                         Spacer()
                         Button {
                             viewModel.isShowSheet.toggle()
-                            print("viewModel.isShowSheet: \(viewModel.isShowSheet)")
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 40))

@@ -5,24 +5,13 @@
 //  Created by nakamura motoki on 2022/04/07.
 //
 
-//ViewModelの責務
-//UIの動作と状態を管理します。
-//Viewから入力されたデータが適切かチェックをします。入力されたデータが適切でない場合は、Viewに入力エラーを表示します。
-//Viewから、ユーザーの入力を受け取り、アプリの仕様に応じた処理を行いModelを変更します。
-//Modelの変更を自身に反映し、データの変更を検知してViewにデータを配信します。
-
-//ViewModel：UIからの入力チェック
-//メールアドレス妥当性チェック
-//半角・全角チェック
-//未入力チェック
-
 //パブリッシャー(配信)
 import SwiftUI
 import CoreData
 
 class ViewModel: ObservableObject{
     //入力されたルールを保持する状態変数(if)
-    @ Published var inputRule1: String = ""
+    @Published var inputRule1: String = ""
     // 入力されたルールを保持する状態変数(then)
     @Published var inputRule2: String = ""
     // 選択した日付を保持する状態変数
@@ -32,7 +21,18 @@ class ViewModel: ObservableObject{
     // CoreDataに保存されているデータを保持して、
     // データ編集用のメソッドと、データを書き込む時に新規登録or編集なのかを判断する際に使用する変数
     private var updateItem: Item!
-    
+
+    @Environment(\.managedObjectContext) private var context
+    //@FetchRequest変数を利用してCoreData(データベース)に登録されているデータを取得する（Fetch処理）
+    //@FetchRequestを使ってプロパティを宣言すると、プロパティ(memos)に検索結果が格納されるとともに、データの変更がViewに即時反映される
+    //データベースの検索結果とViewを紐付けることができる
+    @FetchRequest(
+        //今回の取得条件は、sortDescriptorsでMemo.dateをキーとして昇順(日付が近いメモが上）でフェッチするように指定
+        entity: Item.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: true)]
+    )
+    //検索結果が配置されるmemosプロパティは FetchedResults<エンティティクラス> のコレクション型で、1レコードに該当するMemoエンティティクラス（NSManagedObjectの派生クラス）の配列を保持します。
+    private var items: FetchedResults<Item>
     // メモの新規登録と編集を行うメソッド
     func addRule(context: NSManagedObjectContext)  {
         // データの編集処理
@@ -61,7 +61,6 @@ class ViewModel: ObservableObject{
                     inputRule1 = ""
                     inputRule2 = ""
                     date = Date()
-
                     print("inputRule1には\(inputRule1)")
                     print("inputRule2には\(inputRule2)")
                     print("dateには\(date)")
@@ -103,7 +102,6 @@ class ViewModel: ObservableObject{
                 inputRule1 = ""
                 inputRule2 = ""
                 date = Date()
-                print("isShowSheet: \(isShowSheet)")
                 print("inputRule1には\(inputRule1)")
                 print("inputRule2には\(inputRule2)")
                 print("dateに\(date)")
@@ -120,16 +118,16 @@ class ViewModel: ObservableObject{
     //編集するメモの内容と選択した日付を表示して、登録用のSheet(addRuleView.swift)を表示する。
     //データの書き込みに関しては、新規登録用のaddItem()を利用する。
     func editItem(item:Item){
-        print("------editMemo------")
+        print("------editItem-----")
         updateItem = item
         inputRule1 = item.content1!
         inputRule2 = item.content2!
         date = item.date!
         isShowSheet.toggle()
-        print("isShowSheet: \(isShowSheet)")
+        print("isShowSheetには\(isShowSheet)")
         print("inputRule1には\(inputRule1)")
         print("inputRule2には\(inputRule2)")
         print("dateに\(date)")
         print("------editMemo------")
     }//editItem()
-}//HomeViewModel
+}// ViewModel

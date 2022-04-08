@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct AddRuleView: View {
-    enum Category{
-        case 食事
-        case 睡眠
-        case 運動
-        case 勉強
-    }
-    @State private var selection: Category = .食事
+
     // @FocusStateを使用する
     // フォーカスが当たるTextFieldを判断するためのenumを作成
     // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠している
@@ -31,7 +25,6 @@ struct AddRuleView: View {
     // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context
-    
     var body: some View {
         NavigationView {
             ScrollView{
@@ -66,8 +59,21 @@ struct AddRuleView: View {
                         .onTapGesture {
                             focusedField = .Rule2
                         }
-                    HStack {
-                    }// HStackここまで&カテゴリここまで
+                    // カテゴリを選択するPickerを表示
+                    Picker(selection: $viewModel.selection, label: Text("カテゴリ")){
+                        //　CaseIterableなenumからはallCasesでcase値を列挙できる
+                        //　ViewModel.Category.allCasesで、カテゴリの全列挙値を取得して、
+                        // Arrayに型変換を行っている
+                        ForEach(ViewModel.Category.allCases, id: \.self){ category in
+                            //　rawValueの値をPickerの項目に表示
+                            // 列挙体のデフォルト値を取得
+                            Text(category.rawValue).tag(category)
+                        }// ForEachここまで
+                    }// Pickerここまで
+                    //　Pickerのスタイルを指定
+                    //　Xocde12まではデフォルトがWheelPickerStyle()だったが、
+                    // Xcode13からMenuPickerStyle()がデフォルト設定に変更されている
+                    .pickerStyle(WheelPickerStyle())
                     Button {
                         //ルールを追加するaddRule()を呼び出す
                         viewModel.addRule(context: context)
@@ -96,7 +102,7 @@ struct AddRuleView: View {
             // 画面をタップ時にキーボードを閉じる事が出来る
             .onTapGesture {
                 focusedField = nil
-            }
+            }// .onTapGestureここまで
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

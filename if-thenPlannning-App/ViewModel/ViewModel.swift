@@ -33,6 +33,16 @@ class ViewModel: ObservableObject{
     )
     //検索結果が配置されるmemosプロパティは FetchedResults<エンティティクラス> のコレクション型で、1レコードに該当するMemoエンティティクラス（NSManagedObjectの派生クラス）の配列を保持します。
     private var items: FetchedResults<Item>
+    // enumはrawValueとしてString
+    // PickerのForeachで使えるようにCaseIterableに指定
+    enum Category: String, CaseIterable{
+        case meal = "食事"
+        case sleep = "睡眠"
+        case exercise = "運動"
+        case study = "勉強"
+    }
+    //この値をPickerのselectionとバインドさせる
+    @Published var selection: Category = .meal
     // メモの新規登録と編集を行うメソッド
     func addRule(context: NSManagedObjectContext)  {
         // データの編集処理

@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct AddRuleView: View {
-
     // @FocusStateを使用する
     // フォーカスが当たるTextFieldを判断するためのenumを作成
     // @FocusStateの定義にもある通り、ValueはHashableである必要がある為、準拠している
-    enum Field: Hashable{
+    enum Field: Hashable {
         case Rule1
         case Rule2
     }// enum
@@ -27,8 +26,8 @@ struct AddRuleView: View {
     @Environment(\.managedObjectContext) private var context
     var body: some View {
         NavigationView {
-            ScrollView{
-                VStack(spacing: 30){
+            ScrollView {
+                VStack(spacing: 30) {
                     Spacer()
                     TextField("例：歯を磨いたら", text: $viewModel.inputRule1)
                         .padding()
@@ -60,11 +59,11 @@ struct AddRuleView: View {
                             focusedField = .Rule2
                         }
                     // カテゴリを選択するPickerを表示
-                    Picker(selection: $viewModel.selection, label: Text("カテゴリ")){
+                    Picker(selection: $viewModel.selection, label: Text("カテゴリ")) {
                         //　CaseIterableなenumからはallCasesでcase値を列挙できる
                         //　ViewModel.Category.allCasesで、カテゴリの全列挙値を取得して、
                         // Arrayに型変換を行っている
-                        ForEach(ViewModel.Category.allCases, id: \.self){ category in
+                        ForEach(ViewModel.Category.allCases, id: \.self) { category in
                             //　rawValueの値をPickerの項目に表示
                             // 列挙体のデフォルト値を取得
                             Text(category.rawValue).tag(category)
@@ -75,7 +74,7 @@ struct AddRuleView: View {
                     // Xcode13からMenuPickerStyle()がデフォルト設定に変更されている
                     .pickerStyle(WheelPickerStyle())
                     Button {
-                        //ルールを追加するaddRule()を呼び出す
+                        // ルールを追加するaddRule()を呼び出す
                         viewModel.addRule(context: context)
                     }label: {
                         Label("If-thenルールの追加", systemImage: "plus")

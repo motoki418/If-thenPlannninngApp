@@ -26,8 +26,8 @@ struct ContentView: View {
             ZStack {
                 // データリストを表示
                 DataListRowView()
-                //メモの内容と＋ボタンを縦方向にレイアウト
-                VStack{
+                // メモの内容と＋ボタンを縦方向にレイアウト
+                VStack {
                     Spacer()
                     // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
                     // Spacer()でボタンの上と左側にスペースを入れる

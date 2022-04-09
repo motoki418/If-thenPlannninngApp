@@ -7,10 +7,8 @@
 import Foundation
 import SwiftUI
 
-//［Assets.xcassets］に登録したカラーをextensionでまとめる
-//extensionとは、拡張するという意味で、クラス・構造体・列挙型に対して機能を拡張出来る。拡張は追加するという意味合いがある
-//Color（カラーを管理する構造体）に、「keyColor」「backgroundColor」という2つのプロパティを追加する
-//extensionを使うことで、定義したカラーが一元管理できるようになる
+// Assets.xcassetsに登録したカラーをextensionでまとめる
+// extensionを使うことで、定義したカラーが一元管理できるようになる
 extension Color {
     static let keyColor = Color("blue")
 }

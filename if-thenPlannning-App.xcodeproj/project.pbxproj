@@ -79,9 +79,9 @@
 			children = (
 				3644A22827FB124000A099EA /* View */,
 				361A950527FEE74C0054437E /* ViewModel */,
+				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				3644A20B27FB07BB00A099EA /* if_thenPlannning_AppApp.swift */,
 				3644A21427FB07BD00A099EA /* Persistence.swift */,
-				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				3644A20F27FB07BD00A099EA /* Assets.xcassets */,
 				3644A21627FB07BD00A099EA /* if_thenPlannning_App.xcdatamodeld */,
 				3644A21127FB07BD00A099EA /* Preview Content */,
@@ -117,6 +117,7 @@
 				3644A20427FB07BB00A099EA /* Sources */,
 				3644A20527FB07BB00A099EA /* Frameworks */,
 				3644A20627FB07BB00A099EA /* Resources */,
+				36F6AA612801018600463244 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -171,6 +172,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		36F6AA612801018600463244 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint; then\n    swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3644A20427FB07BB00A099EA /* Sources */ = {

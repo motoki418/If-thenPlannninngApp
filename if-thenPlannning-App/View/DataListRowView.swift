@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DataListRowView: View {
-    @ObservedObject var viewModel: ViewModel = ViewModel()
     // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context
@@ -17,17 +16,18 @@ struct DataListRowView: View {
     // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(data)に検索結果が格納されるとともに、
     // データの変更がViewに即時反映される
     @FetchRequest(entity: Item.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.date,ascending: false)], predicate: nil)
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.date,
+                                                     ascending: false)], predicate: nil)
     
     private var items: FetchedResults<Item>
 
     var body: some View {
-        List{
-            Section(header: Text("食事")){
-                ForEach(items){ item in
-                    VStack(alignment: .leading, spacing: 5){
+        List {
+            Section(header: Text("食事")) {
+                ForEach(items) { item in
+                    VStack(alignment: .leading, spacing: 5) {
                         // 入力したメモを表示
-                        HStack{
+                        HStack {
                             Text("if")
                                 .foregroundColor(.keyColor)
                                 .font(.title3)
@@ -36,7 +36,7 @@ struct DataListRowView: View {
                                 .font(.title3)
                                 .fontWeight(.bold)
                         }// HStackここまで
-                        HStack{
+                        HStack {
                             Text("then")
                                 .foregroundColor(.keyColor)
                                 .font(.title3)

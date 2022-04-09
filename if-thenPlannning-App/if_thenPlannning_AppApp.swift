@@ -11,7 +11,6 @@ import SwiftUI
 struct if_thenPlannning_AppApp: App {
     // PersistenceControllerの共有インスタンスの初期化
     let persistenceController = PersistenceController.shared
-    
     var body: some Scene {
         WindowGroup {
             // 設定が必要となる時は上位のViewで設定して、下位のViewから参照する

@@ -24,6 +24,7 @@ extension Item {
     
     public var wrappedContent1: String { content1 != nil ? content1! : ""}
     public var wrappedContent2: String { content2 != nil ? content2! : ""}
+    public var wrappedCategory: String { category != nil ? category! : ""}
 }
 
 extension Item: Identifiable {

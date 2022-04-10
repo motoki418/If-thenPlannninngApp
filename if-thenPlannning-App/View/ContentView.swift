@@ -19,13 +19,16 @@ struct ContentView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
     }// init()
 
-    @ObservedObject private var viewModel: ViewModel = ViewModel()
+    // ContentView ⇄ AddRuleViewのシートを管理する状態変数
+    @State var isShowSheet: Bool = false
+
+    @State var category: Category = .meal
     
     var body: some View {
         NavigationView {
             ZStack {
                 // データリストを表示
-                DataListRowView()
+                DataListRowView(category: category)
                 // メモの内容と＋ボタンを縦方向にレイアウト
                 VStack {
                     Spacer()
@@ -34,7 +37,7 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         Button {
-                            viewModel.isShowSheet.toggle()
+                            isShowSheet.toggle()
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 40))
@@ -46,8 +49,8 @@ struct ContentView: View {
                                 .padding(.bottom, 20)
                         }// 「＋」ボタンここまで
                         .padding()
-                        .sheet(isPresented: $viewModel.isShowSheet) {
-                            AddRuleView(viewModel: viewModel)
+                        .sheet(isPresented: $isShowSheet) {
+                            AddRuleView(isShowSheet: $isShowSheet)
                         }// .sheetここまで
                     }// HStackここまで
                 }// VStackここまで

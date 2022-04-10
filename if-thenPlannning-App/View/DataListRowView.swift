@@ -12,8 +12,8 @@ struct DataListRowView: View {
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context
     // データベースからデータを取得する処理(Fetch処理)
-    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をtasksプロパティに格納
-    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(data)に検索結果が格納されるとともに、
+    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をitemsプロパティに格納
+    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(items)に検索結果が格納されるとともに、
     // データの変更がViewに即時反映される
     @FetchRequest(entity: Item.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Item.date,
@@ -21,43 +21,58 @@ struct DataListRowView: View {
     
     private var items: FetchedResults<Item>
 
+    @SectionedFetchRequest(
+        // グルーピングに利用する要素を指定
+        sectionIdentifier: \Item.category,
+        // ソートの指定
+        sortDescriptors: [ NSSortDescriptor(keyPath: \Item.category, ascending: true),
+                          NSSortDescriptor(keyPath: \Item.date, ascending: true)]
+        )
+    private var sections: SectionedFetchResults<String?, Item>
+
+    let category: Category
+
     var body: some View {
         List {
-            Section(header: Text("食事")) {
-                ForEach(items) { item in
-                    VStack(alignment: .leading, spacing: 5) {
-                        // 入力したメモを表示
-                        HStack {
-                            Text("if")
-                                .foregroundColor(.keyColor)
-                                .font(.title3)
+            ForEach(Category.allCases, id: \.self) { category in
+                Section {
+                    ForEach(items) { item in
+                        VStack(alignment: .leading, spacing: 5) {
+                            // 入力したメモを表示
+                            HStack {
+                                Text("if")
+                                    .foregroundColor(.keyColor)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                Text(item.wrappedContent1)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                            }// HStackここまで
+                            HStack {
+                                Text("then")
+                                    .foregroundColor(.keyColor)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                Text(item.wrappedContent2)
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                            }// HStackここまで
+                            // 日付を表示
+                            Text(item.stringUpdatedAt)
                                 .fontWeight(.bold)
-                            Text(item.wrappedContent1)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                        }// HStackここまで
-                        HStack {
-                            Text("then")
-                                .foregroundColor(.keyColor)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                            Text(item.wrappedContent2)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                        }// HStackここまで
-                        // 日付を表示
-                        Text(item.stringUpdatedAt)
-                            .fontWeight(.bold)
-                    }// VStackここまで
-                }// ForEachここまで
-                // データの削除
-                .onDelete(perform: removeData)
-            }// Listここまで
-        }// Sectionここまで
+                        }// VStackここまで
+                    }// ForEachここまで
+                    // データの削除
+                    .onDelete(perform: removeItem)
+                }header: {
+                    Text(category.rawValue)
+                }// header
+            }// ForEach
+        }// Listここまで
     }// bodyここまで
 
     // データの削除を行うメソッド
-    private func removeData(at offsets: IndexSet) {
+    private func removeItem(at offsets: IndexSet) {
         // offsetsには削除対象の要素番号が入るので、これを使って要素番号に対応するエンティティを削除する。
         for index in offsets {
             let putItem = items[index]

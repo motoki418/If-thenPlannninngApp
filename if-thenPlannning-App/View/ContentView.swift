@@ -21,43 +21,49 @@ struct ContentView: View {
 
     // ContentView ⇄ AddRuleViewのシートを管理する状態変数
     @State var isShowSheet: Bool = false
+    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
+    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
+    @Environment(\.managedObjectContext) private var context
 
-    @State var category: Category = .meal
-    
+    let categores = ["食事", "睡眠", "運動", "勉強"]
+
+    @State private var selectionCategory = 0
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                // データリストを表示
-                DataListRowView(category: category)
-                // メモの内容と＋ボタンを縦方向にレイアウト
-                VStack {
-                    Spacer()
-                    // 画面右下に「＋」ボタンを配置するするためにVStackとHStackで囲んで、
-                    // Spacer()でボタンの上と左側にスペースを入れる
-                    HStack {
-                        Spacer()
-                        Button {
-                            isShowSheet.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                                .frame(width: 60, height: 60)
-                                .background(Color.keyColor)
-                                .clipShape(Circle())
-                            // ボタンの下に余白を入れる
-                                .padding(.bottom, 20)
-                        }// 「＋」ボタンここまで
-                        .padding()
-                        .sheet(isPresented: $isShowSheet) {
-                            AddRuleView(isShowSheet: $isShowSheet)
-                        }// .sheetここまで
-                    }// HStackここまで
-                }// VStackここまで
-            }// ZStackここまで
-            .navigationTitle("データ一覧")
-            .navigationBarTitleDisplayMode(.inline)
-        }// NavigationViewここまで
+        VStack {
+            // カテゴリの選択
+            Picker("", selection: $selectionCategory) {
+                ForEach(0 ..< categores.count, id: \.self) { index in
+                    // カテゴリ名を表示
+                    Text(categores[index])
+                }// ForEach
+            }// Picker
+            .pickerStyle(SegmentedPickerStyle())
+            // ルール一覧表示View
+            // 引数categoryには、Pikcerで選択したカテゴリ名を渡す
+            DataListRowView(category: categores[selectionCategory])
+            Spacer()
+            // 画面右下に「＋」ボタンを配置するする
+            HStack {
+                Spacer()
+                Button {
+                    isShowSheet.toggle()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 40))
+                        .foregroundColor(.white)
+                        .frame(width: 60, height: 60)
+                        .background(Color.keyColor)
+                        .clipShape(Circle())
+                    // ボタンの下に余白を入れる
+                        .padding(.bottom, 20)
+                }// 「＋」ボタンここまで
+                .padding()
+                .sheet(isPresented: $isShowSheet) {
+                    AddRuleView(isShowSheet: $isShowSheet)
+                }// .sheetここまで
+            }// HStackここまで
+        }// VStack
     }// bodyここまで
 }// ContentViewここまで
 

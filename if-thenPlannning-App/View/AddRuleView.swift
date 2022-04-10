@@ -23,7 +23,6 @@ struct AddRuleView: View {
     // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context
-
     // ContentView ⇄ AddRuleViewのシートを管理する状態変数
     @Binding var isShowSheet: Bool
     

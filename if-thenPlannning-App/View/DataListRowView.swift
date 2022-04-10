@@ -7,82 +7,36 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct DataListRowView: View {
-    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
-    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
-    @Environment(\.managedObjectContext) private var context
-    // データベースからデータを取得する処理(Fetch処理)
-    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をitemsプロパティに格納
-    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(items)に検索結果が格納されるとともに、
-    // データの変更がViewに即時反映される
-    @FetchRequest(entity: Item.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.date,
-                                                     ascending: false)], predicate: nil)
-    
-    private var items: FetchedResults<Item>
+    // ①FetchRequestの保存用
+    // @FetchRequestは使用せず、代わりにカスタムFetchRequestを保存する次のようなプロパティを宣言します。
+    var fetchRequest: FetchRequest<Item>
 
-    @SectionedFetchRequest(
-        // グルーピングに利用する要素を指定
-        sectionIdentifier: \Item.category,
-        // ソートの指定
-        sortDescriptors: [ NSSortDescriptor(keyPath: \Item.category, ascending: true),
-                          NSSortDescriptor(keyPath: \Item.date, ascending: true)]
-        )
-    private var sections: SectionedFetchResults<String?, Item>
-
-    let category: Category
+    // ②FetchRequestの生成
+    // イニシャライザの引数で受け取った検索キーを使って、FetchRequestを生成します
+    init(category: String) {
+        fetchRequest = FetchRequest<Item>(
+            entity: Item.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: true)],
+            predicate: NSPredicate(format: "category == %@", category))
+    }
 
     var body: some View {
         List {
-            ForEach(Category.allCases, id: \.self) { category in
+            // 検索結果を取得する場合は、次のようにfetchRequestのwrappedValueを使って
+            // データを引き出す必要があります。
+            ForEach(fetchRequest.wrappedValue, id: \.self) { item in
                 Section {
-                    ForEach(items) { item in
-                        VStack(alignment: .leading, spacing: 5) {
-                            // 入力したメモを表示
-                            HStack {
-                                Text("if")
-                                    .foregroundColor(.keyColor)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                Text(item.wrappedContent1)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                            }// HStackここまで
-                            HStack {
-                                Text("then")
-                                    .foregroundColor(.keyColor)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                Text(item.wrappedContent2)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                            }// HStackここまで
-                            // 日付を表示
-                            Text(item.stringUpdatedAt)
-                                .fontWeight(.bold)
-                        }// VStackここまで
-                    }// ForEachここまで
-                    // データの削除
-                    .onDelete(perform: removeItem)
-                }header: {
-                    Text(category.rawValue)
-                }// header
-            }// ForEach
+                    VStack(alignment: .leading) {
+                        Text("if: \(item.content1!)")
+                        Text("then: \(item.content2!)")
+                        Text(item.date!, style: .date)
+                        Text(item.category!)
+                    }// VStackここまで
+                }// Sectionここまで
+            }// ForEachここまで
         }// Listここまで
     }// bodyここまで
-
-    // データの削除を行うメソッド
-    private func removeItem(at offsets: IndexSet) {
-        // offsetsには削除対象の要素番号が入るので、これを使って要素番号に対応するエンティティを削除する。
-        for index in offsets {
-            let putItem = items[index]
-            context.delete(putItem)
-        }
-        do {
-            try context.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }// removeData
 }// DataListRowViewここまで

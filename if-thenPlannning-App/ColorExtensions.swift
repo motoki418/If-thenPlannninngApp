@@ -4,7 +4,6 @@
 //
 //  Created by nakamura motoki on 2022/04/07.
 //
-import Foundation
 import SwiftUI
 
 // Assets.xcassetsに登録したカラーをextensionでまとめる

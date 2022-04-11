@@ -19,12 +19,6 @@ extension Item {
     @NSManaged public var content2: String?
     @NSManaged public var category: String?
     @NSManaged public var date: Date?
-    
-    // 値がnilの場合のデフォルト値定義
-    
-    public var wrappedContent1: String { content1 != nil ? content1! : ""}
-    public var wrappedContent2: String { content2 != nil ? content2! : ""}
-    public var wrappedCategory: String { category != nil ? category! : ""}
 }
 
 extension Item: Identifiable {

@@ -18,30 +18,30 @@ struct ContentView: View {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
     }// init()
-
+    
+    // AddRuleViewModelクラスのインスタンス変数
+    @ObservedObject var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // ContentView ⇄ AddRuleViewのシートを管理する状態変数
     @State var isShowSheet: Bool = false
-    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
-    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
-    @Environment(\.managedObjectContext) private var context
-
-    let categores = ["食事", "睡眠", "運動", "勉強"]
-
-    @State private var selectionCategory = 0
-
+    
     var body: some View {
         VStack {
             // カテゴリの選択
-            Picker("", selection: $selectionCategory) {
-                ForEach(0 ..< categores.count, id: \.self) { index in
+            // selectionで、AddRuleViewModel内のselectionCategoryとバインド
+            Picker("", selection: $addRuleVM.selectionCategory) {
+                // Category.allCasesで、カテゴリの全列挙値を取得し,
+                // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
+                ForEach(Category.allCases, id: \.self) { category in
+                    // rawValueの値をPickerの項目に表示
                     // カテゴリ名を表示
-                    Text(categores[index])
+                    Text(category.rawValue)
                 }// ForEach
             }// Picker
             .pickerStyle(SegmentedPickerStyle())
             // ルール一覧表示View
             // 引数categoryには、Pikcerで選択したカテゴリ名を渡す
-            DataListRowView(category: categores[selectionCategory])
+            // これにより、Pickerで選択したカテゴリ名のデータのみが表示される
+            DataListRowView(category: addRuleVM.selectionCategory.rawValue)
             Spacer()
             // 画面右下に「＋」ボタンを配置するする
             HStack {
@@ -63,7 +63,7 @@ struct ContentView: View {
                     AddRuleView(isShowSheet: $isShowSheet)
                 }// .sheetここまで
             }// HStackここまで
-        }// VStack
+        }// VStackここまで
     }// bodyここまで
 }// ContentViewここまで
 

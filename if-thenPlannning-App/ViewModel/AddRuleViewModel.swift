@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 class AddRuleViewModel: ObservableObject {
-    // この値をルール追加画面の、Pickerのselectionとバインドさせる
+    // この値をAddRuleViewとContentViewの、Pickerのselectionとバインドさせる
     @Published var selectionCategory: Category = .meal
     // 入力されたルールを保持する状態変数(if)
     @Published var inputRule1: String = ""
@@ -25,19 +25,19 @@ class AddRuleViewModel: ObservableObject {
     // 検索結果が配置されるitemsプロパティは FetchedResults<エンティティクラス> のコレクション型で
     // 1レコードに該当するItemエンティティクラス（NSManagedObjectの派生クラス）の配列を保持します。
     private var items: FetchedResults<Item>
-
+    
     // if-thenルールの新規登録を行うメソッド
     func addRule(context: NSManagedObjectContext) {
         // データの新規登録は、itemエンティティクラス（NSManagedObjectの派生クラス）
-        // のインスタンスを生成して実現
+        // のインスタンスを生成して実現する。
         // Itemクラスのイニシャライザには、ManagedObjectContextを渡す必要がある
         let newItem = Item(context: context)
         // ItemクラスのインスタンスであるnewItemを生成し、content1属性に入力した値inputRule1を設定
         newItem.content1 = inputRule1
         // ItemクラスのインスタンスであるnewItemを生成し、conten2属性に入力した値inputRule2を設定
         newItem.content2 = inputRule2
-        // date属性に現在の日付を設定
         newItem.date = Date()
+        // AddRuleViewの、Pickerで選択したカテゴリ名を保存する。
         newItem.category = selectionCategory.rawValue
         print("inputRule1には\(inputRule1)")
         print("inputRule2には\(inputRule2)")

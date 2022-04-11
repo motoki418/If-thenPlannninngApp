@@ -10,3 +10,4 @@
 - [SwiftUI × CoreDataでCRUD機能を持つ簡単なメモアプリを作ってみた](https://zenn.dev/tomsan96/articles/e76a1088bcf78d)
 - [SwiftUI CoreData の基本的な実装方法【CRUD(作成、更新、削除)】](https://tomato-develop.com/swiftui-basic-how-to-use-coredata-crud/)
 - [SwiftUI CoreData のデータ取得メソッドの実装【NSPredicateによる条件指定も解説】](https://tomato-develop.com/swiftui-core-data-how-to-complement-method-with-nspredicate/)
+- [SwiftUIの複数なテキストフィールドのキーボードを消す方法](https://zenn.dev/ianchen0419/articles/2f7a99f8a63442)

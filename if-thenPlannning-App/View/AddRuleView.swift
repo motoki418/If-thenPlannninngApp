@@ -30,7 +30,6 @@ struct AddRuleView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
-                    Spacer()
                     TextField("例：歯を磨いたら", text: $addRuleVM.inputRule1)
                         .padding()
                         .font(.title2)
@@ -59,19 +58,23 @@ struct AddRuleView: View {
                         .onTapGesture {
                             focusedField = .Rule2
                         }
+                    HStack {
+                        Text("カテゴリ")
+                        Picker("", selection: $addRuleVM.selectionCategory) {
+                            // Category.allCasesで、カテゴリの全列挙値を取得し,
+                            // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
+                            ForEach(Category.allCases, id: \.self) { category in
+                                // rawValueの値をPickerの項目に表示
+                                // 列挙体のデフォルト値を取得
+                                Text(category.rawValue).tag(category)
+                            }// ForEachここまで
+                        }// Pickerここまで
+                        .frame(width: 250)
+                        .clipped()
+                        .pickerStyle(WheelPickerStyle())
+                    }// HStack
                     // カテゴリの選択
                     // selectionで、AddRuleViewModel内のselectionCategoryとバインド
-                    Picker("", selection: $addRuleVM.selectionCategory) {
-                        // Category.allCasesで、カテゴリの全列挙値を取得し,
-                        // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
-                        ForEach(Category.allCases, id: \.self) { category in
-                            // rawValueの値をPickerの項目に表示
-                            // 列挙体のデフォルト値を取得
-                            Text(category.rawValue).tag(category)
-                        }// ForEachここまで
-                    }// Pickerここまで
-                    //　Pickerのスタイルを指定
-                    .pickerStyle(WheelPickerStyle())
                     Button {
                         // ルールを追加するaddRule()を呼び出す
                         addRuleVM.addRule(context: context)

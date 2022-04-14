@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DataListRowView: View {
+    // AddRuleViewModelクラスのインスタンス変数
+    @ObservedObject var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // ①FetchRequestの保存用
     // 構造体のプロパティとして作成される@ FetchRequestは、
     // Swiftの制限により、他のプロパティを参照する事ができないため、
@@ -38,7 +40,6 @@ struct DataListRowView: View {
             // 検索結果(抽出条件)を取得する場合は、次のようにfetchRequestのwrappedValueを使って、
             // データを引き出す必要がある。
             ForEach(fetchRequest.wrappedValue, id: \.self) { item in
-                Section {
                     VStack(alignment: .leading) {
                         // ifルール
                         Text("if: \(item.content1!)")
@@ -46,10 +47,7 @@ struct DataListRowView: View {
                         Text("then: \(item.content2!)")
                         // 日付
                         Text(item.stringUpdatedAt)
-                        // カテゴリ名
-                        Text(item.category!)
                     }// VStackここまで
-                }// Sectionここまで
             }// ForEachここまで
         }// Listここまで
     }// bodyここまで

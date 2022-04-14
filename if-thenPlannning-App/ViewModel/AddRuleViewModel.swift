@@ -16,6 +16,7 @@ class AddRuleViewModel: ObservableObject {
     @Published var inputRule1: String = ""
     // 入力されたルールを保持する状態変数(then)
     @Published var inputRule2: String = ""
+    @Environment(\.managedObjectContext) private var context
     // @FetchRequestを使ってプロパティを宣言すると、
     // プロパティ(items)に検索結果が格納されるとともに、データの変更がViewに即時反映される
     // 今回の取得条件は、昇順(日付が近いメモが上）でフェッチするように指定
@@ -25,7 +26,6 @@ class AddRuleViewModel: ObservableObject {
     // 検索結果が配置されるitemsプロパティは FetchedResults<エンティティクラス> のコレクション型で
     // 1レコードに該当するItemエンティティクラス（NSManagedObjectの派生クラス）の配列を保持します。
     private var items: FetchedResults<Item>
-    
     // if-thenルールの新規登録を行うメソッド
     func addRule(context: NSManagedObjectContext) {
         // データの新規登録は、itemエンティティクラス（NSManagedObjectの派生クラス）

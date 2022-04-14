@@ -16,6 +16,7 @@ class AddRuleViewModel: ObservableObject {
     @Published var inputRule1: String = ""
     // 入力されたルールを保持する状態変数(then)
     @Published var inputRule2: String = ""
+    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     @Environment(\.managedObjectContext) private var context
     // @FetchRequestを使ってプロパティを宣言すると、
     // プロパティ(items)に検索結果が格納されるとともに、データの変更がViewに即時反映される

@@ -20,9 +20,9 @@ struct ContentView: View {
     }// init()
     
     // AddRuleViewModelクラスのインスタンス変数
-    @ObservedObject var addRuleVM: AddRuleViewModel = AddRuleViewModel()
+    @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // ContentView ⇄ AddRuleViewのシートを管理する状態変数
-    @State var isShowSheet: Bool = false
+    @State private var isShowSheet: Bool = false
     
     var body: some View {
             ZStack {

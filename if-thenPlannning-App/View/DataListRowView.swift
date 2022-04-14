@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct DataListRowView: View {
-    // AddRuleViewModelクラスのインスタンス変数
-    @ObservedObject var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // ①FetchRequestの保存用
     // 構造体のプロパティとして作成される@ FetchRequestは、
     // Swiftの制限により、他のプロパティを参照する事ができないため、
     // @FetchRequestは使用せず、代わりにカスタムFetchRequestを保存する次のようなプロパティを宣言する。
-    var fetchRequest: FetchRequest<Item>
+    private var fetchRequest: FetchRequest<Item>
     // ②FetchRequestの生成
     // イニシャライザの引数(category)で受け取った検索キーを使って、FetchRequestを生成する。
     init(category: String) {

@@ -19,7 +19,7 @@ struct AddRuleView: View {
     // @FocusStateを付与した値をnilにすると、キーボードが閉じてくれるので、オプショナルにしている。
     @FocusState private var focusedField: Field?
     // AddRuleViewModelクラスのインスタンス変数
-    @ObservedObject var addRuleVM: AddRuleViewModel = AddRuleViewModel()
+    @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
     // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
     @Environment(\.managedObjectContext) private var context

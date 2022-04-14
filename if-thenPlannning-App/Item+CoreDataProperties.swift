@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Item {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Item> {
@@ -20,14 +19,9 @@ extension Item {
     @NSManaged public var content2: String?
     @NSManaged public var category: String?
     @NSManaged public var date: Date?
-    
-    //値がnilの場合のデフォルト値定義
-    
-    public var wrappedContent1: String{ content1 != nil ? content1! : ""}
-    public var wrappedContent2: String{ content2 != nil ? content2! : ""}
 }
 
-extension Item : Identifiable {
+extension Item: Identifiable {
     // stringUpdatedAtを呼び出すとString型のupdatedAtが返却される
     public var stringUpdatedAt: String { dateFomatter(date: date ?? Date()) }
 

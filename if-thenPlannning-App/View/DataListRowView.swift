@@ -8,80 +8,45 @@
 import SwiftUI
 
 struct DataListRowView: View {
-
-    @ObservedObject var viewModel: ViewModel = ViewModel()
-    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
-    // 非管理オブジェクトコンテキストはデータベース操作に必要な操作を行うためのオブジェクト
-    @Environment(\.managedObjectContext) private var context
-    // データベースからデータを取得する処理(Fetch処理)
-    // @FetchRequesプロパティラッパーを使って、データベースを検索し、対象データ群をtasksプロパティに格納
-    // @ FetchRequestを使ってプロパティを宣言すると、プロパティ(data)に検索結果が格納されるとともに、
-    // データの変更がViewに即時反映される
-
-    @FetchRequest(entity: Item.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.date,ascending: false)], predicate: nil)
-    
-    private var items: FetchedResults<Item>
+    // ①FetchRequestの保存用
+    // 構造体のプロパティとして作成される@ FetchRequestは、
+    // Swiftの制限により、他のプロパティを参照する事ができないため、
+    // @FetchRequestは使用せず、代わりにカスタムFetchRequestを保存する次のようなプロパティを宣言する。
+    private var fetchRequest: FetchRequest<Item>
+    // ②FetchRequestの生成
+    // イニシャライザの引数(category)で受け取った検索キーを使って、FetchRequestを生成する。
+    init(category: String) {
+        // カスタムFetchRequestの保存用として作成したfetchRequest変数に、
+        // カスタムFetchRequestを格納する。
+        fetchRequest = FetchRequest<Item>(
+            // 検索対象entityを"エンティティ名.entity()"で指定する。
+            entity: Item.entity(),
+            // 検索結果のソート順は、NSSortDescriptorクラスを使用して指定する。
+            // 引数keyPathで並べ替える属性を、引数ascendingで昇順（true）か降順（false）を指定する。
+            // 古いデータ　→ 新しいデータの順番で表示する。
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: true)],
+            // 抽出条件は、NSPredicateクラスを使用して指定する。
+            // データに引用符が含まれていると複雑になるので、代わりに次のような構文を使用するのが一般的。
+            // %@は「ここに文字列を挿入する」という意味で、
+            // そのデータをインラインではなく、パラメータとして提供することが出来る。
+            // 今回は、Pikcerで選択したカテゴリ名と一致するデータのみ抽出する。
+            predicate: NSPredicate(format: "category == %@", category))
+    }// init()ここまで
 
     var body: some View {
-        VStack{
-            // CoreDataに登録されたデータがない場合の処理
-            if items.isEmpty{
-                Spacer()
-                // 画面の中央に表示
-                Text("ADD IF THEN RULE")
-                    .font(.title)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            // CoreDataに登録されたデータがある場合
-            else{
-                List{
-                    ForEach(items){ item in
-                        VStack(alignment: .leading, spacing: 5){
-                            // 入力したメモを表示
-                            HStack{
-                                Text("if")
-                                    .foregroundColor(.keyColor)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                Text(item.wrappedContent1)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                            }// HStackここまで
-                            HStack{
-                                Text("then")
-                                    .foregroundColor(.keyColor)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                Text(item.wrappedContent2)
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                            }// HStackここまで
-                            // 日付を表示
-                            Text(item.stringUpdatedAt)
-                                .fontWeight(.bold)
-                        }// VStackここまで
-                    }// ForEachここまで
-                    // データの削除
-                    .onDelete(perform: removeData)
-                }// Listここまで
-            }// if文ここまで
-        }// VStackここまで
+        List {
+            // 検索結果(抽出条件)を取得する場合は、次のようにfetchRequestのwrappedValueを使って、
+            // データを引き出す必要がある。
+            ForEach(fetchRequest.wrappedValue, id: \.self) { item in
+                    VStack(alignment: .leading) {
+                        // ifルール
+                        Text("if: \(item.content1!)")
+                        // thenルール
+                        Text("then: \(item.content2!)")
+                        // 日付
+                        Text(item.stringUpdatedAt)
+                    }// VStackここまで
+            }// ForEachここまで
+        }// Listここまで
     }// bodyここまで
-
-    // データの削除を行うメソッド
-    private func removeData(offsets: IndexSet) {
-        // offsetsには削除対象の要素番号が入るので、これを使って要素番号に対応するエンティティを削除する。
-        for index in offsets {
-            let putItem = items[index]
-            context.delete(putItem)
-        }
-        do {
-            try context.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }// removeData
 }// DataListRowViewここまで

@@ -48,10 +48,16 @@ struct DataListRowView: View {
                 VStack(alignment: .leading) {
                     // ifルール
                     Text("if: \(item.content1!)")
+                        .font(.title2)
+                        .fontWeight(.bold)
                     // thenルール
                     Text("then: \(item.content2!)")
+                        .font(.title2)
+                        .fontWeight(.bold)
                     // 日付
                     Text(item.stringUpdatedAt)
+                        .font(.title2)
+                        .fontWeight(.bold)
                 }// VStackここまで
             }// ForEachここまで
             .onDelete(perform: deleteRule)
@@ -74,6 +80,5 @@ struct DataListRowView: View {
             let error = error as Error
             print("error.localizedDescription:  \(error.localizedDescription)")
         }
-    }// deleteRule
-
+    }// deleteRule()ここまで
 }// DataListRowViewここまで

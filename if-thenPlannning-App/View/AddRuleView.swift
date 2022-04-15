@@ -30,7 +30,7 @@ struct AddRuleView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
-                    TextField("例：歯を磨いたら", text: $addRuleVM.inputRule1)
+                    TextField("例：立ち上がったら", text: $addRuleVM.inputRule1)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)
@@ -47,7 +47,7 @@ struct AddRuleView: View {
                         .onTapGesture {
                             focusedField = .Rule1
                         }
-                    TextField("例：15分散歩をする", text: $addRuleVM.inputRule2)
+                    TextField("例：10回スクワットする", text: $addRuleVM.inputRule2)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)
@@ -60,6 +60,7 @@ struct AddRuleView: View {
                         }
                     HStack {
                         Text("カテゴリ")
+                            .font(.title2)
                         Picker("", selection: $addRuleVM.selectionCategory) {
                             // Category.allCasesで、カテゴリの全列挙値を取得し,
                             // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
@@ -72,7 +73,7 @@ struct AddRuleView: View {
                         .frame(width: 250)
                         .clipped()
                         .pickerStyle(WheelPickerStyle())
-                    }// HStack
+                    }// HStackここまで
                     // カテゴリの選択
                     // selectionで、AddRuleViewModel内のselectionCategoryとバインド
                     Button {

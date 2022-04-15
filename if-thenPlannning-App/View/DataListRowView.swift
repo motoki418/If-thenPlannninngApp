@@ -32,21 +32,48 @@ struct DataListRowView: View {
             // 今回は、Pikcerで選択したカテゴリ名と一致するデータのみ抽出する。
             predicate: NSPredicate(format: "category == %@", category))
     }// init()ここまで
+    // 非管理オブジェクトコンテキスト(ManagedObjectContext)の取得
+    @Environment(\.managedObjectContext) private var context
+    // wrappedValueを使わず検索結果を取得する為に、計算プロパティを作成
+    // deleteRuleメソッドでも使用する
+    var items: FetchedResults<Item> {
+        fetchRequest.wrappedValue
+    }
 
     var body: some View {
         List {
-            // 検索結果(抽出条件)を取得する場合は、次のようにfetchRequestのwrappedValueを使って、
+            // 検索結果(抽出条件)を取得する場合は、fetchRequestのwrappedValueを使って、
             // データを引き出す必要がある。
-            ForEach(fetchRequest.wrappedValue, id: \.self) { item in
-                    VStack(alignment: .leading) {
-                        // ifルール
-                        Text("if: \(item.content1!)")
-                        // thenルール
-                        Text("then: \(item.content2!)")
-                        // 日付
-                        Text(item.stringUpdatedAt)
-                    }// VStackここまで
+            ForEach(items, id: \.self) { item in
+                VStack(alignment: .leading) {
+                    // ifルール
+                    Text("if: \(item.content1!)")
+                    // thenルール
+                    Text("then: \(item.content2!)")
+                    // 日付
+                    Text(item.stringUpdatedAt)
+                }// VStackここまで
             }// ForEachここまで
+            .onDelete(perform: deleteRule)
         }// Listここまで
     }// bodyここまで
+
+    // データ削除を行うメソッド
+    private func deleteRule(offsets: IndexSet) {
+        // レコードの削除
+        // offsetsには、削除対象の要素番号のコレクションが渡ってくるので、
+        // 各要素番号に対応したエンティティを、for文で回して削除する
+        for index in offsets {
+            context.delete(items[index])
+        }
+        // データベースの保存
+        do {
+            try context.save()
+        } catch {
+            // エラー処理
+            let error = error as Error
+            print("error.localizedDescription:  \(error.localizedDescription)")
+        }
+    }// deleteRule
+
 }// DataListRowViewここまで

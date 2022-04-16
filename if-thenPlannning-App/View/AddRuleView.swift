@@ -30,7 +30,7 @@ struct AddRuleView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
-                    TextField("例：立ち上がったら", text: $addRuleVM.inputRule1)
+                    TextField("例：ご飯を食べているときは", text: $addRuleVM.inputRule1)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)
@@ -47,7 +47,7 @@ struct AddRuleView: View {
                         .onTapGesture {
                             focusedField = .Rule1
                         }
-                    TextField("例：10回スクワットする", text: $addRuleVM.inputRule2)
+                    TextField("例：スマホやテレビを見ない", text: $addRuleVM.inputRule2)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)

@@ -25,6 +25,8 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            Color.keyColor
+                .edgesIgnoringSafeArea(.all)
             VStack {
                 // カテゴリの選択
                 // selectionで、AddRuleViewModel内のselectionCategoryとバインド

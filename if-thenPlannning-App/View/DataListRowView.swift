@@ -55,7 +55,7 @@ struct DataListRowView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                     // 日付
-                    Text(item.stringUpdatedAt)
+                    Text("登録日: \(item.stringUpdatedAt)")
                         .font(.title2)
                         .fontWeight(.bold)
                 }// VStackここまで

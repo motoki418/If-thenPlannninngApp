@@ -19,6 +19,9 @@
 		3644A22627FB119800A099EA /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644A22427FB119800A099EA /* Item+CoreDataClass.swift */; };
 		3644A22727FB119800A099EA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644A22527FB119800A099EA /* Item+CoreDataProperties.swift */; };
 		3653D7EE27FEDD520015557D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653D7ED27FEDD520015557D /* ColorExtensions.swift */; };
+		36D0AA7D280BE6CC0047A055 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA7C280BE6CC0047A055 /* Habit.swift */; };
+		36D0AA7F280BEABB0047A055 /* GoodHabitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA7E280BEABB0047A055 /* GoodHabitListView.swift */; };
+		36D0AA81280BEC360047A055 /* BadHabitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA80280BEC360047A055 /* BadHabitListView.swift */; };
 		36F6AA8228013A5B00463244 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6AA8128013A5B00463244 /* Category.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 		3644A22427FB119800A099EA /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Item+CoreDataClass.swift"; path = "if-thenPlannning-App/Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3644A22527FB119800A099EA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Item+CoreDataProperties.swift"; path = "if-thenPlannning-App/Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3653D7ED27FEDD520015557D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		36D0AA7C280BE6CC0047A055 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		36D0AA7E280BEABB0047A055 /* GoodHabitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodHabitListView.swift; sourceTree = "<group>"; };
+		36D0AA80280BEC360047A055 /* BadHabitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadHabitListView.swift; sourceTree = "<group>"; };
 		36F6AA8128013A5B00463244 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +89,7 @@
 				361A950527FEE74C0054437E /* ViewModel */,
 				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				36F6AA8128013A5B00463244 /* Category.swift */,
+				36D0AA7C280BE6CC0047A055 /* Habit.swift */,
 				3644A20B27FB07BB00A099EA /* if_thenPlannning_AppApp.swift */,
 				3644A21427FB07BD00A099EA /* Persistence.swift */,
 				3644A20F27FB07BD00A099EA /* Assets.xcassets */,
@@ -104,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				3644A20D27FB07BB00A099EA /* ContentView.swift */,
+				36D0AA80280BEC360047A055 /* BadHabitListView.swift */,
+				36D0AA7E280BEABB0047A055 /* GoodHabitListView.swift */,
 				361A950127FEE7000054437E /* DataListRowView.swift */,
 				3644A22227FB09FB00A099EA /* AddRuleView.swift */,
 			);
@@ -204,9 +213,12 @@
 				361A950427FEE7490054437E /* AddRuleViewModel.swift in Sources */,
 				3644A22727FB119800A099EA /* Item+CoreDataProperties.swift in Sources */,
 				361A950227FEE7000054437E /* DataListRowView.swift in Sources */,
+				36D0AA81280BEC360047A055 /* BadHabitListView.swift in Sources */,
 				3644A22627FB119800A099EA /* Item+CoreDataClass.swift in Sources */,
 				3644A22327FB09FB00A099EA /* AddRuleView.swift in Sources */,
+				36D0AA7F280BEABB0047A055 /* GoodHabitListView.swift in Sources */,
 				3644A21527FB07BD00A099EA /* Persistence.swift in Sources */,
+				36D0AA7D280BE6CC0047A055 /* Habit.swift in Sources */,
 				3644A21827FB07BD00A099EA /* if_thenPlannning_App.xcdatamodeld in Sources */,
 				3644A20E27FB07BB00A099EA /* ContentView.swift in Sources */,
 				3644A20C27FB07BB00A099EA /* if_thenPlannning_AppApp.swift in Sources */,
@@ -339,7 +351,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1o;
 				DEVELOPMENT_ASSET_PATHS = "\"if-thenPlannning-App/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BBTSUW2QV;
 				ENABLE_PREVIEWS = YES;
@@ -370,7 +382,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1o;
 				DEVELOPMENT_ASSET_PATHS = "\"if-thenPlannning-App/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BBTSUW2QV;
 				ENABLE_PREVIEWS = YES;

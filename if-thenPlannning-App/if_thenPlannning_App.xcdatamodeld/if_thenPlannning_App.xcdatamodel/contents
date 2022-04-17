@@ -5,8 +5,9 @@
         <attribute name="content1" optional="YES" attributeType="String"/>
         <attribute name="content2" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="habit" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Item" positionX="-63" positionY="-18" width="128" height="104"/>
     </elements>
 </model>

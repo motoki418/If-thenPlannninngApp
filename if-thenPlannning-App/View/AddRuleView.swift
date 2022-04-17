@@ -35,7 +35,7 @@ struct AddRuleView: View {
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.keyColor, lineWidth: 1))
+                            .stroke(Color.backgroundColor, lineWidth: 1))
                         .padding()
                     // 別のTextFieldに移動した際に、キーボードを出した状態を保持する為に、
                     // 各TextFieldにもonTapGUestureを追加して、focusedFieldに値を入れるようにする
@@ -52,12 +52,28 @@ struct AddRuleView: View {
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.keyColor, lineWidth: 1))
+                            .stroke(Color.backgroundColor, lineWidth: 1))
                         .padding()
                         .focused($focusedField, equals: .Rule2)
                         .onTapGesture {
                             focusedField = .Rule2
                         }
+                    HStack {
+                        Text("タイプ")
+                            .font(.title2)
+                        Picker("", selection: $addRuleVM.selectionHabit) {
+                            // Habit.allCasesで、カテゴリの全列挙値を取得し,
+                            // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
+                            ForEach(Habit.allCases, id: \.self) { habit in
+                                // rawValueの値をPickerの項目に表示
+                                // 列挙体Habitのデフォルト値を取得
+                                Text(habit.rawValue).tag(habit)
+                            }// ForEachここまで
+                        }// Pickerここまで
+                        .frame(width: 250, height: 80)
+                        .clipped()
+                        .pickerStyle(WheelPickerStyle())
+                    }// HStackここまで
                     HStack {
                         Text("カテゴリ")
                             .font(.title2)
@@ -66,11 +82,11 @@ struct AddRuleView: View {
                             // 取得した全列挙値をArrayに型変換を行って、Pickerの選択肢としている
                             ForEach(Category.allCases, id: \.self) { category in
                                 // rawValueの値をPickerの項目に表示
-                                // 列挙体のデフォルト値を取得
+                                // 列挙体Categoryのデフォルト値を取得
                                 Text(category.rawValue).tag(category)
                             }// ForEachここまで
                         }// Pickerここまで
-                        .frame(width: 250)
+                        .frame(width: 250, height: 170)
                         .clipped()
                         .pickerStyle(WheelPickerStyle())
                     }// HStackここまで
@@ -85,7 +101,7 @@ struct AddRuleView: View {
                             .font(.system(size: 25))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 50)
-                            .background(Color.keyColor)
+                            .background(Color.backgroundColor)
                         // 左右に余白を入れる
                             .padding(.horizontal, 20)
                         // 上下に余白を入れる

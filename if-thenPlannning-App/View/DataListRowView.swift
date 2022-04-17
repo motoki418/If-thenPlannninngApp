@@ -54,6 +54,7 @@ struct DataListRowView: View {
                     Text("then: \(item.content2!)")
                         .font(.title2)
                         .fontWeight(.bold)
+                    Text("タイプ: \(item.habit!)")
                     // 日付
                     Text("登録日: \(item.stringUpdatedAt)")
                         .font(.title2)

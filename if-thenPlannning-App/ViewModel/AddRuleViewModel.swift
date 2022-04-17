@@ -12,6 +12,8 @@ import CoreData
 class AddRuleViewModel: ObservableObject {
     // この値をAddRuleViewとContentViewの、Pickerのselectionとバインドさせる
     @Published var selectionCategory: Category = .meal
+    // この値をAddRuleViewとContentViewの、Pickerのとバインドさせる
+    @Published var selectionHabit: Habit = .goodHabit
     // 入力されたルールを保持する状態変数(if)
     @Published var inputRule1: String = ""
     // 入力されたルールを保持する状態変数(then)
@@ -38,6 +40,7 @@ class AddRuleViewModel: ObservableObject {
         // ItemクラスのインスタンスであるnewItemを生成し、conten2属性に入力した値inputRule2を設定
         newItem.content2 = inputRule2
         newItem.date = Date()
+        newItem.habit = selectionHabit.rawValue
         // AddRuleViewの、Pickerで選択したカテゴリ名を保存する。
         newItem.category = selectionCategory.rawValue
         print("inputRule1には\(inputRule1)")

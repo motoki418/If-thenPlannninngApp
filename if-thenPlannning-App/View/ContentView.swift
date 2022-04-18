@@ -9,6 +9,21 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.backgroundColor
+        // タイトルの色設定
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
+
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.shadowColor = UIColor(Color.backgroundColor)
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }// init()
     var body: some View {
         TabView {
             GoodHabitListView()
@@ -20,8 +35,13 @@ struct ContentView: View {
                 .tabItem {
                     Label("やめたい", systemImage: "hand.thumbsdown.fill")
                 }
+
+            SettingView()
+                .tabItem {
+                    Label("設定", systemImage: "gearshape.fill")
+                }
         }// TabViewここまで
-        // タブバーの色指定
+        // tabItemの色指定
         .accentColor(Color.backgroundColor)
     }// bodyここまで
 }// ContentViewここまで

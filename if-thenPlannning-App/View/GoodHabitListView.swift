@@ -9,15 +9,6 @@ import SwiftUI
 import CoreData
 
 struct GoodHabitListView: View {
-    init() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.backgroundColor
-        // タイトルの色設定
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = UINavigationBar.appearance().standardAppearance
-    }// init()
     // AddRuleViewModelクラスのインスタンス変数
     @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     // ContentView ⇄ AddRuleViewのシートを管理する状態変数
@@ -48,19 +39,24 @@ struct GoodHabitListView: View {
             // 画面右下に「＋」ボタンを配置する
             VStack {
                 Spacer()
+
                 HStack {
                     Spacer()
                     Button {
                         isShowSheet.toggle()
                     } label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color.backgroundColor)
-                            .clipShape(Circle())
-                        // ボタンの下に余白を入れる
-                            .padding(.bottom, 20)
+                        VStack {
+                            Image(systemName: "plus")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color.backgroundColor)
+                                .clipShape(Circle())
+                            // ボタンの下に余白を入れる
+                            Text("ルールを追加")
+                                .foregroundColor(Color.backgroundColor)
+                                .padding(.bottom, 20)
+                        }// VStackここまで
                     }// 「＋」ボタンここまで
                     .padding()
                     .sheet(isPresented: $isShowSheet) {

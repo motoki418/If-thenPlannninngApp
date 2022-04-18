@@ -1,13 +1,13 @@
 //
-//  AddRuleView.swift
+//  AddRuleView1.swift
 //  if-thenPlannning-App
 //
-//  Created by nakamura motoki on 2022/04/04.
+//  Created by nakamura motoki on 2022/04/18.
 //
 
 import SwiftUI
 
-struct AddRuleView: View {
+struct AddRuleView1: View {
     // フォーカスが当たっているTextFieldを判断するためのenumを作成。
     // @FocusStateの定義にもある通り、ValueはHashableである必要がある為準拠している。
     enum Field: Hashable {
@@ -94,7 +94,7 @@ struct AddRuleView: View {
                     // selectionで、AddRuleViewModel内のselectionCategoryとバインド
                     Button {
                         // ルールを追加するaddRule()を呼び出す
-                        addRuleVM.goodHabitaddRule(context: context)
+                        addRuleVM.badHabitaddRule(context: context)
                         isShowSheet.toggle()
                     }label: {
                         Label("If-thenルールの追加", systemImage: "plus")
@@ -145,4 +145,4 @@ struct AddRuleView: View {
             .navigationBarTitleDisplayMode(.inline)
         }// NavigationViewここまで
     }// bodyここまで
-}// AddRuleViewここまで
+}

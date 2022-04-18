@@ -10,6 +10,7 @@ import SwiftUI
 // extensionを使うことで、定義したカラーが一元管理できるようになる
 extension Color {
     static let backgroundColor = Color("Background")
+    static let fontColor = Color("fontColor")
 }
 
 // NvigationViewがUIKItを使っているためUIカラー型も作る必要がある

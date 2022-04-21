@@ -17,6 +17,7 @@ struct AddRuleView: View {
     // @FocusStateとは、フォーカスに変更があった時に、
     // SwiftUIが更新する値を読み書きできるプロパティラッパー。
     // @FocusStateを付与した値をnilにすると、キーボードが閉じてくれるので、オプショナルにしている。
+    // 監視結果を保存する状態変数
     @FocusState private var focusedField: Field?
     // AddRuleViewModelクラスのインスタンス変数
     @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
@@ -42,7 +43,8 @@ struct AddRuleView: View {
                     // これにより、別のTextFieldに移った際に、
                     // キーボードを出した状態を保持する事が、出来るようになる。
                     // 第一引数には@ FocusStateの値を渡し、
-                    // 第二引数には今回はどのfocusedFieldを指しているのかを渡す
+                    // 第二引数には、どのfocusedFieldを指しているのか
+                    // (二つのTextFieldのうち、どちらのTextFieldなのか)を渡す
                         .focused($focusedField, equals: .Rule1)
                         .onTapGesture {
                             focusedField = .Rule1
@@ -54,6 +56,10 @@ struct AddRuleView: View {
                         .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.backgroundColor, lineWidth: 1))
                         .padding()
+                    // 今回は、TextFieldのフォーカス状態を監視したいので、
+                    // TextFieldに.focusedを付与する。
+                    // バインディングされたfocusedFieldにフォーカスの状態が
+                    // 自動的に保存される。
                         .focused($focusedField, equals: .Rule2)
                         .onTapGesture {
                             focusedField = .Rule2

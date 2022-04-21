@@ -23,7 +23,7 @@ struct SettingView: View {
                     HStack {
                         Text("開発者にお問い合わせ")
                             .foregroundColor(Color.fontColor)
-                    }
+                    }// HStackここまで
                 }// お問い合わせボタンここまで
                 Button {
                     openURL(URL(string: "https://apps.apple.com/jp/app/if-then%E3%83%97%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0/id1619599235")!)
@@ -31,13 +31,13 @@ struct SettingView: View {
                     HStack {
                         Text("アプリのレビュー")
                             .foregroundColor(Color.fontColor)
-                    }
+                    }// HStackここまで
                 }// レビューボタンここまで
             }// Listここまで
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarTitle("設定・アプリ情報")
         }// NavigationViewここまで
-    }
+    }// bodyここまで
 }
 
 struct SettingView_Previews: PreviewProvider {

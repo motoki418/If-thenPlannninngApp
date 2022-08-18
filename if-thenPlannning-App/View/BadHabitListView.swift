@@ -16,8 +16,6 @@ struct BadHabitListView: View {
 
     var body: some View {
         ZStack {
-            Color.backgroundColor
-                .edgesIgnoringSafeArea(.all)
             VStack {
                 // カテゴリの選択
                 // selectionで、AddRuleViewModel内のselectionCategoryとバインド

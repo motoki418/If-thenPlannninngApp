@@ -14,3 +14,4 @@ disabled_rules:
 - type_name
 # 関数内の行数制限を外す
 - function_body_length
+- line_length

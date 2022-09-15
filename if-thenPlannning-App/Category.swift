@@ -7,8 +7,6 @@
 
 import Foundation
 
-// enumはrawValueとしてString
-// PickerのForEachで使えるように、CaseIterableプロトコルに準拠させる。
 enum Category: String, CaseIterable {
     case meal = "食事"
     case sleep = "睡眠"

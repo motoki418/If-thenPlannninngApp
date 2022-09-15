@@ -19,6 +19,8 @@
 		3644A22627FB119800A099EA /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644A22427FB119800A099EA /* Item+CoreDataClass.swift */; };
 		3644A22727FB119800A099EA /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644A22527FB119800A099EA /* Item+CoreDataProperties.swift */; };
 		3653D7EE27FEDD520015557D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653D7ED27FEDD520015557D /* ColorExtensions.swift */; };
+		36D0AA7F280BEABB0047A055 /* RuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA7E280BEABB0047A055 /* RuleListView.swift */; };
+		36D0AA83280D5F430047A055 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA82280D5F430047A055 /* SettingView.swift */; };
 		36F6AA8228013A5B00463244 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6AA8128013A5B00463244 /* Category.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		3644A22427FB119800A099EA /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Item+CoreDataClass.swift"; path = "if-thenPlannning-App/Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3644A22527FB119800A099EA /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Item+CoreDataProperties.swift"; path = "if-thenPlannning-App/Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3653D7ED27FEDD520015557D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		36D0AA7E280BEABB0047A055 /* RuleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleListView.swift; sourceTree = "<group>"; };
+		36D0AA82280D5F430047A055 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		36F6AA8128013A5B00463244 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,8 +108,10 @@
 			isa = PBXGroup;
 			children = (
 				3644A20D27FB07BB00A099EA /* ContentView.swift */,
+				36D0AA7E280BEABB0047A055 /* RuleListView.swift */,
 				361A950127FEE7000054437E /* DataListRowView.swift */,
 				3644A22227FB09FB00A099EA /* AddRuleView.swift */,
+				36D0AA82280D5F430047A055 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -206,6 +212,8 @@
 				361A950227FEE7000054437E /* DataListRowView.swift in Sources */,
 				3644A22627FB119800A099EA /* Item+CoreDataClass.swift in Sources */,
 				3644A22327FB09FB00A099EA /* AddRuleView.swift in Sources */,
+				36D0AA83280D5F430047A055 /* SettingView.swift in Sources */,
+				36D0AA7F280BEABB0047A055 /* RuleListView.swift in Sources */,
 				3644A21527FB07BD00A099EA /* Persistence.swift in Sources */,
 				3644A21827FB07BD00A099EA /* if_thenPlannning_App.xcdatamodeld in Sources */,
 				3644A20E27FB07BB00A099EA /* ContentView.swift in Sources */,
@@ -339,7 +347,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1o;
 				DEVELOPMENT_ASSET_PATHS = "\"if-thenPlannning-App/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BBTSUW2QV;
 				ENABLE_PREVIEWS = YES;
@@ -370,7 +378,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1o;
 				DEVELOPMENT_ASSET_PATHS = "\"if-thenPlannning-App/Preview Content\"";
 				DEVELOPMENT_TEAM = 3BBTSUW2QV;
 				ENABLE_PREVIEWS = YES;

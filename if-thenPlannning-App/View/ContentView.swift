@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    
     init() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -26,14 +27,9 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            GoodHabitListView()
+            RuleListView()
                 .tabItem {
                     Label("身に付けたい", systemImage: "hand.thumbsup.fill")
-                }
-            
-            BadHabitListView()
-                .tabItem {
-                    Label("やめたい", systemImage: "hand.thumbsdown.fill")
                 }
             
             SettingView()

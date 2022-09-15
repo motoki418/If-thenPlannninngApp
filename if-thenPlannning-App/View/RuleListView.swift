@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct GoodHabitListView: View {
+struct RuleListView: View {
     
     @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
     
@@ -58,6 +58,6 @@ struct GoodHabitListView: View {
 
 struct GoodHabitListView_Previews: PreviewProvider {
     static var previews: some View {
-        GoodHabitListView()
+        RuleListView()
     }
 }

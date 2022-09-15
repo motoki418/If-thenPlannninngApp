@@ -10,15 +10,14 @@ import SwiftUI
 struct AddRuleView: View {
     
     enum Field: Hashable {
-        case Rule1
-        case Rule2
+        case IfRule
+        case ThenRule
     }
+    @Environment(\.managedObjectContext) private var context
     
     @FocusState private var focusedField: Field?
     
     @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
-    
-    @Environment(\.managedObjectContext) private var context
     
     @Binding var isShowSheet: Bool
     
@@ -26,40 +25,28 @@ struct AddRuleView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 30) {
-                    TextField("例：ご飯を食べているときは", text: $addRuleVM.inputRule1)
+                    TextField("例：ご飯を食べる前に", text: $addRuleVM.IfRule)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.backgroundColor, lineWidth: 1))
                         .padding()
-                        .focused($focusedField, equals: .Rule1)
+                        .focused($focusedField, equals: .IfRule)
                         .onTapGesture {
-                            focusedField = .Rule1
+                            focusedField = .IfRule
                         }
-                    TextField("例：スマホやテレビを見ない", text: $addRuleVM.inputRule2)
+                    TextField("例：20回スクワットをする", text: $addRuleVM.ThenRule)
                         .padding()
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.backgroundColor, lineWidth: 1))
                         .padding()
-                        .focused($focusedField, equals: .Rule2)
+                        .focused($focusedField, equals: .ThenRule)
                         .onTapGesture {
-                            focusedField = .Rule2
+                            focusedField = .ThenRule
                         }
-                    HStack {
-                        Text("タイプ")
-                            .font(.title2)
-                        Picker("", selection: $addRuleVM.selectionHabit) {
-                            ForEach(Habit.allCases, id: \.self) { habit in
-                                Text(habit.rawValue).tag(habit)
-                            }
-                        }
-                        .frame(width: 250, height: 80)
-                        .clipped()
-                        .pickerStyle(WheelPickerStyle())
-                    }
                     HStack {
                         Text("カテゴリ")
                             .font(.title2)
@@ -74,7 +61,7 @@ struct AddRuleView: View {
                     }
                     
                     Button {
-                        addRuleVM.goodHabitaddRule(context: context)
+                        addRuleVM.CreateRule(context: context)
                         isShowSheet.toggle()
                     }label: {
                         Label("If-thenルールの追加", systemImage: "plus")
@@ -85,8 +72,8 @@ struct AddRuleView: View {
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                     }
-                    .disabled(addRuleVM.inputRule1 == "" || addRuleVM.inputRule2 == "" ? true : false)
-                    .opacity(addRuleVM.inputRule1 == "" || addRuleVM.inputRule2 == "" ? 0.5 : 1)
+                    .disabled(addRuleVM.IfRule == "" || addRuleVM.ThenRule == "" ? true : false)
+                    .opacity(addRuleVM.IfRule == "" || addRuleVM.ThenRule == "" ? 0.5 : 1)
                     
                     Spacer()
                 }
@@ -98,7 +85,7 @@ struct AddRuleView: View {
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    focusedField = .Rule1
+                    focusedField = .IfRule
                 }
             }
             .toolbar {

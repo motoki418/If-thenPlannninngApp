@@ -14,10 +14,6 @@ struct SettingView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: ExplanationView()) {
-                    Text("アプリの使い方")
-                }
-                
                 Button {
                     openURL(URL(string: "https://twitter.com/motoki0418")!)
                 }label: {

@@ -85,8 +85,8 @@
 			children = (
 				3644A22827FB124000A099EA /* View */,
 				361A950527FEE74C0054437E /* ViewModel */,
-				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				36F6AA8128013A5B00463244 /* Category.swift */,
+				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				3644A20B27FB07BB00A099EA /* if_thenPlannning_AppApp.swift */,
 				3644A21427FB07BD00A099EA /* Persistence.swift */,
 				3644A20F27FB07BD00A099EA /* Assets.xcassets */,

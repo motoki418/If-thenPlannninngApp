@@ -29,15 +29,12 @@ struct DataListRowView: View {
             ForEach(items, id: \.self) { item in
                 VStack(alignment: .leading) {
                     Text("if: \(item.content1!)")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                    
                     Text("then: \(item.content2!)")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                    
                     Text("登録日: \(item.stringUpdatedAt)")
-                        .font(.title2)
-                        .fontWeight(.bold)
                 }
+                .font(.title3)
             }
             .onDelete(perform: deleteRule)
         }

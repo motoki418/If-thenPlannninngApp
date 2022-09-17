@@ -10,9 +10,9 @@ import CoreData
 
 struct RuleListView: View {
     
-    @ObservedObject private var addRuleVM: AddRuleViewModel = AddRuleViewModel()
+    @ObservedObject private var addRuleVM = AddRuleViewModel()
     
-    @State private var isShowSheet: Bool = false
+    @State private var isShowSheet = false
     
     var body: some View {
         ZStack {
@@ -31,18 +31,19 @@ struct RuleListView: View {
                 
                 HStack {
                     Spacer()
+                    
                     Button {
                         isShowSheet.toggle()
-                    } label: {
+                    }label: {
                         VStack {
                             Image(systemName: "plus")
                                 .font(.system(size: 40))
                                 .foregroundColor(.white)
                                 .frame(width: 60, height: 60)
-                                .background(Color.backgroundColor)
+                                .background(Color.BlueColor)
                                 .clipShape(Circle())
                             Text("ルールを追加")
-                                .foregroundColor(Color.backgroundColor)
+                                .foregroundColor(Color.BlueColor)
                                 .padding(.bottom, 20)
                         }
                     }

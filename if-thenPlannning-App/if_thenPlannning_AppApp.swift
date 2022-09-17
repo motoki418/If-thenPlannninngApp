@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct if_thenPlannning_AppApp: App {
+    
     let persistenceController = PersistenceController.shared
     
     var body: some Scene {

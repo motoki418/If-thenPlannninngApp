@@ -13,27 +13,20 @@ struct SettingView: View {
     
     var body: some View {
         NavigationView {
-            List {
+            Form {
                 Button {
                     openURL(URL(string: "https://twitter.com/motoki0418")!)
                 }label: {
-                    HStack {
-                        Text("開発者にお問い合わせ")
-                            .foregroundColor(Color.fontColor)
-                    }
+                    Text("開発者にお問い合わせ")
                 }
                 
                 Button {
                     openURL(URL(string: "https://apps.apple.com/jp/app/if-then%E3%83%97%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0/id1619599235")!)
                 }label: {
-                    HStack {
-                        Text("アプリのレビュー")
-                            .foregroundColor(Color.fontColor)
-                    }
+                    Text("アプリのレビュー")
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarTitle("設定・アプリ情報")
+            .navigationTitle("設定・アプリ情報")
         }
     }
 }

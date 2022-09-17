@@ -30,7 +30,7 @@ struct AddRuleView: View {
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.backgroundColor, lineWidth: 1))
+                            .stroke(Color.BlueColor, lineWidth: 1))
                         .padding()
                         .focused($focusedField, equals: .IfRule)
                         .onTapGesture {
@@ -41,7 +41,7 @@ struct AddRuleView: View {
                         .font(.title2)
                         .frame(height: 50)
                         .overlay(RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.backgroundColor, lineWidth: 1))
+                            .stroke(Color.BlueColor, lineWidth: 1))
                         .padding()
                         .focused($focusedField, equals: .ThenRule)
                         .onTapGesture {
@@ -68,7 +68,7 @@ struct AddRuleView: View {
                             .font(.system(size: 25))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 50)
-                            .background(Color.backgroundColor)
+                            .background(Color.BlueColor)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                     }
@@ -94,7 +94,6 @@ struct AddRuleView: View {
                         isShowSheet.toggle()
                     }label: {
                         Text("戻る")
-                            .foregroundColor(.white)
                     }
                 }
             }

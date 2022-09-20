@@ -14,19 +14,29 @@ struct SettingView: View {
     var body: some View {
         NavigationView {
             Form {
-                Button {
-                    openURL(URL(string: "https://twitter.com/motoki0418")!)
-                }label: {
-                    Text("開発者にお問い合わせ")
-                }
+                contactDeveloperButton
                 
-                Button {
-                    openURL(URL(string: "https://apps.apple.com/jp/app/if-then%E3%83%97%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0/id1619599235")!)
-                }label: {
-                    Text("アプリのレビュー")
-                }
+                reviewTheAppButton
             }
             .navigationTitle("設定・アプリ情報")
+        }
+    }
+    
+    private var contactDeveloperButton: some View {
+        Button {
+            openURL(URL(string: "https://twitter.com/motoki0418")!)
+        } label: {
+            Label("開発者にお問い合わせ", systemImage: "paperplane.fill")
+                .foregroundColor(.fontColor)
+        }
+    }
+    
+    private var reviewTheAppButton: some View {
+        Button {
+            openURL(URL(string: "https://apps.apple.com/jp/app/if-then%E3%83%97%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0/id1619599235")!)
+        } label: {
+            Label("アプリをレビューする", systemImage: "pencil.and.ellipsis.rectangle")
+                .foregroundColor(.fontColor)
         }
     }
 }

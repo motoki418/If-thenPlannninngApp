@@ -26,38 +26,43 @@ struct RuleListView: View {
                 
                 DataListRowView(category: addRuleVM.selectionCategory.rawValue)
             }
-            VStack {
+            
+            plusButton
+        }
+    }
+    
+    private var plusButton: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
                 Spacer()
                 
-                HStack {
-                    Spacer()
-                    
-                    Button {
-                        isShowSheet.toggle()
-                    }label: {
-                        VStack {
-                            Image(systemName: "plus")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                                .frame(width: 60, height: 60)
-                                .background(Color.BlueColor)
-                                .clipShape(Circle())
-                            Text("ルールを追加")
-                                .foregroundColor(Color.BlueColor)
-                                .padding(.bottom, 20)
-                        }
+                Button {
+                    isShowSheet.toggle()
+                } label: {
+                    VStack {
+                        Image(systemName: "plus")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
+                            .frame(width: 60, height: 60)
+                            .background(Color.BlueColor)
+                            .clipShape(Circle())
+                        Text("ルールを追加")
+                            .foregroundColor(Color.BlueColor)
+                            .padding(.bottom, 20)
                     }
-                    .padding()
-                    .sheet(isPresented: $isShowSheet) {
-                        AddRuleView(isShowSheet: $isShowSheet)
-                    }
+                }
+                .padding()
+                .sheet(isPresented: $isShowSheet) {
+                    AddRuleView(isShowSheet: $isShowSheet)
                 }
             }
         }
     }
 }
 
-struct GoodHabitListView_Previews: PreviewProvider {
+struct RuleListView_Previews: PreviewProvider {
     static var previews: some View {
         RuleListView()
     }

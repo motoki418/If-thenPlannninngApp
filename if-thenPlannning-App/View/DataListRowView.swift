@@ -26,18 +26,22 @@ struct DataListRowView: View {
     
     var body: some View {
         List {
-            ForEach(items, id: \.self) { item in
-                VStack(alignment: .leading) {
-                    Text("if: \(item.content1!)")
-                    
-                    Text("then: \(item.content2!)")
-                    
-                    Text("登録日: \(item.stringUpdatedAt)")
-                }
-                .font(.title3)
-            }
-            .onDelete(perform: deleteRule)
+            ruleListText
         }
+    }
+    
+    private var ruleListText: some View {
+        ForEach(items, id: \.self) { item in
+            VStack(alignment: .leading) {
+                Text("if: \(item.content1!)")
+                
+                Text("then: \(item.content2!)")
+                
+                Text("登録日: \(item.stringUpdatedAt)")
+            }
+            .font(.title3)
+        }
+        .onDelete(perform: deleteRule)
     }
     
     private func deleteRule(offsets: IndexSet) {

@@ -8,4 +8,5 @@ import SwiftUI
 
 extension Color {
     static let BlueColor = Color("BlueColor")
+    static let fontColor = Color("fontColor")
 }

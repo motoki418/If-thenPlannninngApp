@@ -9,13 +9,9 @@ import SwiftUI
 
 struct AddRuleView: View {
     
-    enum Field: Hashable {
-        case IfRule
-        case ThenRule
-    }
     @Environment(\.managedObjectContext) private var context
     
-    @FocusState private var focusedField: Field?
+    @FocusState private var focusedField: RuleType?
     
     @ObservedObject private var addRuleVM = AddRuleViewModel()
     
@@ -41,16 +37,12 @@ struct AddRuleView: View {
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    focusedField = .IfRule
+                    focusedField = .ifRule
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        isShowSheet.toggle()
-                    } label: {
-                        Text("戻る")
-                    }
+                    closeSheetButton
                 }
             }
             .navigationTitle("データの追加")
@@ -59,30 +51,30 @@ struct AddRuleView: View {
     }
     
     private var inputIfRuleTextField: some View {
-        TextField("例：ご飯を食べる前に", text: $addRuleVM.IfRule)
+        TextField("例：ご飯を食べる前に", text: $addRuleVM.ifRule)
             .padding()
             .font(.title2)
             .frame(height: 50)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.BlueColor, lineWidth: 1))
+            .stroke(Color.BlueColor, lineWidth: 1))
             .padding()
-            .focused($focusedField, equals: .IfRule)
+            .focused($focusedField, equals: .ifRule)
             .onTapGesture {
-                focusedField = .IfRule
+                focusedField = .ifRule
             }
     }
     
     private var inputThenRuleTextFiled: some View {
-        TextField("例：20回スクワットをする", text: $addRuleVM.ThenRule)
+        TextField("例：20回スクワットをする", text: $addRuleVM.thenRule)
             .padding()
             .font(.title2)
             .frame(height: 50)
             .overlay(RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.BlueColor, lineWidth: 1))
+            .stroke(Color.BlueColor, lineWidth: 1))
             .padding()
-            .focused($focusedField, equals: .ThenRule)
+            .focused($focusedField, equals: .thenRule)
             .onTapGesture {
-                focusedField = .ThenRule
+                focusedField = .thenRule
             }
     }
     
@@ -114,7 +106,15 @@ struct AddRuleView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
         }
-        .disabled(addRuleVM.IfRule == "" || addRuleVM.ThenRule == "" ? true : false)
-        .opacity(addRuleVM.IfRule == "" || addRuleVM.ThenRule == "" ? 0.3 : 1)
+        .disabled(addRuleVM.isInvalid ? true : false)
+        .opacity(addRuleVM.isInvalid ? 0.3 : 1)
+    }
+    
+    private var closeSheetButton: some View {
+        Button {
+            isShowSheet.toggle()
+        } label: {
+            Text("画面を閉じる")
+        }
     }
 }

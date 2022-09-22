@@ -12,11 +12,11 @@ class AddRuleViewModel: ObservableObject {
     
     @Published var selectionCategory: Category = .meal
     
-    @Published var IfRule: String = ""
+    @Published var ifRule: String = ""
     
-    @Published var ThenRule: String = ""
+    @Published var thenRule: String = ""
     
-    @Environment(\.managedObjectContext) private var context
+    @Environment(\.managedObjectContext) var context
     
     @FetchRequest(entity: Item.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: true)]
@@ -24,20 +24,26 @@ class AddRuleViewModel: ObservableObject {
     
     private var items: FetchedResults<Item>
     
+    @Published var isShowSheet = false
+    
+    var isInvalid: Bool {
+        ifRule.isEmpty || thenRule.isEmpty
+    }
+    
     func CreateRule(context: NSManagedObjectContext) {
         
         let newItem = Item(context: context)
-        newItem.content1 = IfRule
-        newItem.content2 = ThenRule
+        newItem.content1 = ifRule
+        newItem.content2 = thenRule
         newItem.date = Date()
         newItem.category = selectionCategory.rawValue
         do {
             try context.save()
-            IfRule = ""
-            ThenRule = ""
+            ifRule = ""
+            thenRule = ""
         } catch {
             let error = error as Error
-            print("error.localizedDescription:  \(error.localizedDescription)")
+            print("error.localizedDescription: \(error.localizedDescription)")
         }
     }
 }

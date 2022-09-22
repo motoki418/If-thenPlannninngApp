@@ -26,7 +26,6 @@ struct RuleListView: View {
                 
                 DataListRowView(category: addRuleVM.selectionCategory.rawValue)
             }
-            
             plusButton
         }
     }
@@ -34,10 +33,8 @@ struct RuleListView: View {
     private var plusButton: some View {
         VStack {
             Spacer()
-            
             HStack {
                 Spacer()
-                
                 Button {
                     isShowSheet.toggle()
                 } label: {

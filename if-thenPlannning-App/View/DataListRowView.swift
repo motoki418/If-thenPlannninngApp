@@ -26,11 +26,11 @@ struct DataListRowView: View {
     
     var body: some View {
         List {
-            ruleListText
+            dataListRow
         }
     }
     
-    private var ruleListText: some View {
+    private var dataListRow: some View {
         ForEach(items, id: \.self) { item in
             VStack(alignment: .leading) {
                 Text("if: \(item.content1!)")
@@ -45,7 +45,7 @@ struct DataListRowView: View {
     }
     
     private func deleteRule(offsets: IndexSet) {
-        for index in offsets {
+        offsets.forEach { index in
             context.delete(items[index])
         }
         do {

@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 
 extension Item {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Item> {
         return NSFetchRequest<Item>(entityName: "Item")
     }
-
+    
     @NSManaged public var content1: String?
     @NSManaged public var content2: String?
     @NSManaged public var category: String?
@@ -24,14 +24,15 @@ extension Item {
 
 extension Item: Identifiable {
     // stringUpdatedAtを呼び出すとString型のupdatedAtが返却される
-    public var stringUpdatedAt: String { dateFomatter(date: date ?? Date()) }
-
-    func dateFomatter(date: Date) -> String {
+    public var stringUpdatedAt: String {
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.dateStyle = .full
+        dateFormatter.locale = Locale(identifier: "Ja_JP")
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
-
-        return dateFormatter.string(from: date)
+        
+        return dateFormatter.string(from: date ?? Date())
+        
     }
 }

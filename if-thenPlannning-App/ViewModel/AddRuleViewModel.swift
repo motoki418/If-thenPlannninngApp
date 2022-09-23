@@ -15,22 +15,18 @@ class AddRuleViewModel: ObservableObject {
     @Published var ifRule: String = ""
     
     @Published var thenRule: String = ""
-    
+        
     @Environment(\.managedObjectContext) var context
     
     @FetchRequest(entity: Item.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Item.date, ascending: true)]
-    )
-    
-    private var items: FetchedResults<Item>
-    
-    @Published var isShowSheet = false
+    ) private var items: FetchedResults<Item>
     
     var isInvalid: Bool {
         ifRule.isEmpty || thenRule.isEmpty
     }
     
-    func CreateRule(context: NSManagedObjectContext) {
+    func CreateNewRule(context: NSManagedObjectContext) {
         
         let newItem = Item(context: context)
         newItem.content1 = ifRule

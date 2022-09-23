@@ -5,7 +5,7 @@
 //  Created by nakamura motoki on 2022/09/22.
 //
 
-import SwiftUI
+import Foundation
 
 enum RuleType: Hashable {
     case ifRule

@@ -42,7 +42,7 @@ struct RuleListView: View {
                         Image(systemName: "plus")
                             .font(.system(size: 40))
                             .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
+                            .frame(width: 50, height: 50)
                             .background(Color.BlueColor)
                             .clipShape(Circle())
                         Text("ルールを追加")

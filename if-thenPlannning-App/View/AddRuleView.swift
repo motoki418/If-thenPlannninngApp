@@ -21,9 +21,7 @@ struct AddRuleView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
-                    inputIfRuleTextField
-                    
-                    inputThenRuleTextFiled
+                    inputRuleTextField
                     
                     categorySelection
                     
@@ -50,32 +48,27 @@ struct AddRuleView: View {
         }
     }
     
-    private var inputIfRuleTextField: some View {
-        TextField("例：ご飯を食べる前に", text: $addRuleVM.ifRule)
+    private var inputRuleTextField: some View {
+        VStack {
+            Group {
+                TextField("例：ご飯を食べる前に", text: $addRuleVM.ifRule)
+                    .focused($focusedField, equals: .ifRule)
+                    .onTapGesture {
+                        focusedField = .ifRule
+                    }
+                TextField("例：20回スクワットをする", text: $addRuleVM.thenRule)
+                    .focused($focusedField, equals: .thenRule)
+                    .onTapGesture {
+                        focusedField = .thenRule
+                    }
+            }
             .padding()
             .font(.title2)
             .frame(height: 50)
             .overlay(RoundedRectangle(cornerRadius: 5)
             .stroke(Color.BlueColor, lineWidth: 1))
             .padding()
-            .focused($focusedField, equals: .ifRule)
-            .onTapGesture {
-                focusedField = .ifRule
-            }
-    }
-    
-    private var inputThenRuleTextFiled: some View {
-        TextField("例：20回スクワットをする", text: $addRuleVM.thenRule)
-            .padding()
-            .font(.title2)
-            .frame(height: 50)
-            .overlay(RoundedRectangle(cornerRadius: 5)
-            .stroke(Color.BlueColor, lineWidth: 1))
-            .padding()
-            .focused($focusedField, equals: .thenRule)
-            .onTapGesture {
-                focusedField = .thenRule
-            }
+        }
     }
     
     private var categorySelection: some View {
@@ -95,7 +88,7 @@ struct AddRuleView: View {
     
     private var addRuleButton: some View {
         Button {
-            addRuleVM.CreateRule(context: context)
+            addRuleVM.CreateNewRule(context: context)
             isShowSheet.toggle()
         } label: {
             Label("If-thenルールの追加", systemImage: "plus")

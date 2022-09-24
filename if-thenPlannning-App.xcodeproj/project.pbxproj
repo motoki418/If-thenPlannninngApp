@@ -21,6 +21,7 @@
 		3653D7EE27FEDD520015557D /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3653D7ED27FEDD520015557D /* ColorExtensions.swift */; };
 		36D0AA7F280BEABB0047A055 /* RuleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA7E280BEABB0047A055 /* RuleListView.swift */; };
 		36D0AA83280D5F430047A055 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D0AA82280D5F430047A055 /* SettingView.swift */; };
+		36DD02C528DC920700D1387C /* RuleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DD02C428DC920700D1387C /* RuleType.swift */; };
 		36F6AA8228013A5B00463244 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F6AA8128013A5B00463244 /* Category.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		3653D7ED27FEDD520015557D /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		36D0AA7E280BEABB0047A055 /* RuleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleListView.swift; sourceTree = "<group>"; };
 		36D0AA82280D5F430047A055 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		36DD02C428DC920700D1387C /* RuleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleType.swift; sourceTree = "<group>"; };
 		36F6AA8128013A5B00463244 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,7 @@
 				3644A22827FB124000A099EA /* View */,
 				361A950527FEE74C0054437E /* ViewModel */,
 				36F6AA8128013A5B00463244 /* Category.swift */,
+				36DD02C428DC920700D1387C /* RuleType.swift */,
 				3653D7ED27FEDD520015557D /* ColorExtensions.swift */,
 				3644A20B27FB07BB00A099EA /* if_thenPlannning_AppApp.swift */,
 				3644A21427FB07BD00A099EA /* Persistence.swift */,
@@ -220,6 +223,7 @@
 				3644A20C27FB07BB00A099EA /* if_thenPlannning_AppApp.swift in Sources */,
 				3653D7EE27FEDD520015557D /* ColorExtensions.swift in Sources */,
 				36F6AA8228013A5B00463244 /* Category.swift in Sources */,
+				36DD02C528DC920700D1387C /* RuleType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

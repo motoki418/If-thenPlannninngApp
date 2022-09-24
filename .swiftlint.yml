@@ -14,4 +14,8 @@ disabled_rules:
 - type_name
 # 関数内の行数制限を外す
 - function_body_length
+# 1行の文字数制限を外す
 - line_length
+# クロージャで未使用​​のパラメータは_に置き換える必要があるので外しておく
+- unused_closure_parameter
+

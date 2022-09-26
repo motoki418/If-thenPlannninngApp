@@ -11,3 +11,11 @@
 - [SwiftUI CoreData の基本的な実装方法【CRUD(作成、更新、削除)】](https://tomato-develop.com/swiftui-basic-how-to-use-coredata-crud/)
 - [SwiftUI CoreData のデータ取得メソッドの実装【NSPredicateによる条件指定も解説】](https://tomato-develop.com/swiftui-core-data-how-to-complement-method-with-nspredicate/)
 - [SwiftUIの複数なテキストフィールドのキーボードを消す方法](https://zenn.dev/ianchen0419/articles/2f7a99f8a63442)
+
+## ダウンロードリンク
+[If-thenプランニング](https://apps.apple.com/jp/app/if-then%E3%83%97%E3%83%A9%E3%83%B3%E3%83%8B%E3%83%B3%E3%82%B0/id1619599235)
+
+## 開発環境
+- Xcode14.0
+- macOS Monterey 12.6
+- iOS16.0
